@@ -1,0 +1,13 @@
+.app-shell {
+  display: flex;
+  height: 100vh;
+  background: #f5f7fb; // fundo claro como no layout
+  overflow: hidden;
+}
+
+.app-content {
+  flex: 1;
+  padding: 24px 32px 48px; // espaço extra no bottom
+  overflow-y: auto;
+  min-height: 100vh; // garantir que o padding-bottom seja visível
+}

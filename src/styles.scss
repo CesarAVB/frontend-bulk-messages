@@ -1,0 +1,83 @@
+@use '@angular/material' as mat;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+// ...existing code...
+
+html, body { height: 100%; }
+
+// antes estava com Roboto aqui
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+// ...existing code...
+:root {
+  --app-font-size: 13px;
+  --app-line-height: 1.4;
+  --app-muted: #6b7280;
+  --app-heading-color: #0b1220;
+}
+
+html { font-size: 13px; }
+body {
+  font-size: var(--app-font-size);
+  line-height: var(--app-line-height);
+  color: var(--app-heading-color);
+}
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* --- Tipografia e espaçamento globais (reduzidos e mais suaves) --- */
+:root {
+  --app-font-size: 13px;
+  --app-line-height: 1.4;
+  --app-muted: #6b7280;
+  --app-heading-color: #0b1220;
+}
+
+html { font-size: 13px; }
+body {
+  font-size: var(--app-font-size);
+  line-height: var(--app-line-height);
+  color: var(--app-heading-color);
+}
+
+/* Cabeçalhos menores e mais suaves */
+h1 { font-size: 22px; margin: 0 0 6px; font-weight: 700; }
+h2 { font-size: 18px; margin: 0 0 6px; font-weight: 600; }
+h3 { font-size: 15px; margin: 0 0 4px; font-weight: 600; }
+h4 { font-size: 13px; margin: 0 0 4px; font-weight: 600; }
+
+/* Ajustes globais de componentes para reduzir 'tamanho' visual */
+.card { padding: 12px 14px; border-radius: 10px; }
+button { font-size: 13px; }
+.btn-primary { padding: 7px 12px; border-radius: 8px; }
+.btn-outline { padding: 6px 10px; border-radius: 8px; }
+
+/* reduzir espaçamentos gerais no conteúdo */
+.app-content { padding: 16px 20px 64px; }
+
+/* suavizar ícones e badges padrão */
+.resumo-card__numero, .instancia-card__numero { font-size: 18px; }
+.resumo-card__titulo, .muted { font-size: 12px; color: var(--app-muted); }
+
+@media (max-width: 760px) {
+  html { font-size: 12px; }
+  .card { padding: 10px }
+  .btn-primary, .btn-outline { padding: 7px 10px }
+}
+
+
+/* Garantir espaçamento inferior nas páginas renderizadas em .app-content */
+.app-content {
+  box-sizing: border-box;
+  padding-bottom: 64px; /* espaço extra para evitar conteúdo colado ao bottom */
+}
+
+/* Se o filho direto preencher 100vh, reduzimos a altura para considerar o padding */
+.app-content > * {
+  min-height: calc(100vh - 64px);
+}

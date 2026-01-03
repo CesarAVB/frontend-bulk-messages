@@ -1,0 +1,125 @@
+<!-- src/app/pages/dashboard/dashboard.html -->
+<section class="dashboard">
+  <header class="dashboard__header">
+    <h1>Dashboard</h1>
+    <p>Visão geral do sistema de envio de mensagens</p>
+  </header>
+
+  <!-- Cards de Métricas -->
+  <div class="dashboard__metrics">
+    <div class="metric-card">
+      <div class="metric-card__icon metric-card__icon--contacts">
+        <!-- Ícone de pessoas -->
+        <i class="material-icons">people_alt</i>
+      </div>
+      <div class="metric-card__content">
+        <h3>Contatos Importados</h3>
+        <span class="metric-card__value">{{ contatosCount() }}</span>
+        <p class="metric-card__subtitle">Prontos para envio</p>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-card__icon metric-card__icon--sent">
+        <!-- Ícone de avião de papel -->
+        <i class="material-icons">send</i>
+      </div>
+      <div class="metric-card__content">
+        <h3>Mensagens Enviadas</h3>
+        <span class="metric-card__value">{{ totalEnvios() }}</span>
+        <p class="metric-card__subtitle">Total de envios</p>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-card__icon metric-card__icon--success">
+        <!-- Ícone de check -->
+        <i class="material-icons">check_circle</i>
+      </div>
+      <div class="metric-card__content">
+        <h3>Envios com Sucesso</h3>
+        <span class="metric-card__value">{{ enviosComSucesso() }}</span>
+        <p class="metric-card__subtitle">{{ taxaSucesso() }}% de taxa</p>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-card__icon metric-card__icon--instances">
+        <!-- Ícone de Wi-Fi -->
+        <i class="material-icons">wifi</i>
+      </div>
+      <div class="metric-card__content">
+        <h3>Instâncias Ativas</h3>
+        <span class="metric-card__value"
+          >{{ instanciasAtivas() }}/{{ instanciasTotal() }}</span
+        >
+        <p class="metric-card__subtitle">WhatsApp conectado</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cards de Ações Rápidas -->
+  <div class="dashboard__actions-grid">
+    <div class="action-card" routerLink="/importar-contatos">
+      <div class="action-card__icon">
+        <i class="material-icons">cloud_upload</i>
+      </div>
+      <div class="action-card__content">
+        <h3>Importar Contatos</h3>
+        <p>
+          Faça upload de um arquivo XLS com seus contatos para iniciar o envio
+          de mensagens
+        </p>
+        <button class="btn-primary">
+          Importar Arquivo <i class="material-icons">arrow_forward</i>
+        </button>
+      </div>
+    </div>
+
+    <div class="action-card" routerLink="/enviar-mensagens">
+      <div class="action-card__icon">
+        <i class="material-icons">chat</i>
+      </div>
+      <div class="action-card__content">
+        <h3>Enviar Mensagens</h3>
+        <p>{{ contatosCount() }} contatos prontos para receber mensagens</p>
+        <button class="btn-primary">
+          Configurar Envio <i class="material-icons">arrow_forward</i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Atividade Recente -->
+  <div class="card dashboard__recent-activity">
+    <h2>Atividade Recente</h2>
+    <div class="recent-list">
+      @for (envio of recentEnvios(); track envio.id) {
+        <div class="recent-item">
+          <div class="recent-item__icon">
+            <i class="material-icons">send</i>
+          </div>
+          <div class="recent-item__info">
+            <span class="recent-item__file">{{ envio.nomeArquivo }}</span>
+            <span class="recent-item__model"
+              >{{ envio.nomeModelo }}</span
+            >
+          </div>
+          <div class="recent-item__stats">
+            <span class="recent-item__success"
+              ><i class="material-icons">check_circle</i>
+              {{ envio.totalSucesso }}</span
+            >
+            <span class="recent-item__error"
+              ><i class="material-icons">cancel</i> {{ envio.totalErro }}</span
+            >
+          </div>
+        </div>
+      } @empty {
+        <div class="recent-item--empty">
+          Nenhuma atividade recente encontrada.
+        </div>
+      }
+    </div>
+  </div>
+</section>

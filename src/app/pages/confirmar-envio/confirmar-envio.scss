@@ -1,0 +1,184 @@
+/* src/app/pages/confirmar-envio/confirmar-envio.scss */
+.page {
+  &__header {
+    margin-bottom: 24px;
+
+    h1 {
+      font-size: 28px;
+      margin: 0 0 6px;
+      font-weight: 700;
+      color: #0b1220;
+    }
+
+    p {
+      margin: 0;
+      color: #6b7280;
+    }
+
+    &--center {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+  }
+}
+
+.confirm-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 8px 16px 40px;
+}
+
+.confirm-card {
+  width: 720px;
+  background: #fff;
+  border-radius: 16px; // Aumentei um pouco o border-radius para consistência
+  padding: 28px;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
+}
+
+.confirm-row {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px; // Adicionado espaçamento
+}
+
+.confirm-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.icon-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0f2fe; // Azul claro, consistente com outros ícones
+  color: #0369a1; // Azul escuro para o ícone
+  font-size: 24px; // Tamanho do ícone
+}
+
+.icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #dcfce7; // Verde claro, consistente com outros ícones
+  color: #16a34a; // Verde escuro para o ícone
+  font-size: 20px; // Tamanho do ícone
+}
+
+.muted { color: #6b7280; font-size: 13px }
+.strong { font-weight: 700; font-size: 16px; color: #0b1220 }
+
+.preview {
+  margin-top: 18px;
+}
+
+.preview-box {
+  margin-top: 8px;
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 10px;
+  color: #0b1220;
+  line-height: 1.6;
+  border: 1px solid #e5e7eb; // Adicionado borda sutil
+}
+
+.confirm-actions {
+  margin-top: 28px; // Aumentei um pouco o espaçamento
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-lg { padding: 12px 20px; font-size: 15px }
+
+.btn-primary {
+  background: #0950C3;
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px 24px; // Ajustei padding para ser mais consistente
+  border: none;
+  font-size: 16px; // Ajustei font-size
+  font-weight: 600; // Ajustei font-weight
+  cursor: pointer;
+  display: inline-flex; // Para alinhar ícone e texto
+  align-items: center;
+  gap: 10px; // Espaçamento entre ícone e texto
+  transition: background 0.2s ease, opacity 0.2s ease;
+
+  &:hover {
+    background: #073a94;
+  }
+
+  &:disabled {
+    background: #6b9fd8;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  i {
+    font-size: 20px; // Tamanho do ícone
+  }
+
+  .spin {
+    animation: spin 1s linear infinite;
+  }
+}
+
+.btn-outline {
+  border-radius: 8px;
+  padding: 12px 24px; // Ajustei padding para ser mais consistente
+  border: 1px solid #2563eb;
+  background: #E4EBF7;
+  color: #2563eb;
+  font-size: 16px; // Ajustei font-size
+  font-weight: 600; // Ajustei font-weight
+  cursor: pointer;
+  display: inline-flex; // Para alinhar ícone e texto
+  align-items: center;
+  gap: 10px; // Espaçamento entre ícone e texto
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    background: #cdddf3;
+    color: #1d4ed8;
+    border-color: #1d4ed8;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #9ca3af;
+  }
+
+  i {
+    font-size: 20px; // Tamanho do ícone
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* pequenos ajustes responsivos */
+@media (max-width: 760px) {
+  .confirm-card { width: 100%; padding: 18px }
+  .confirm-row { flex-direction: column; gap: 16px; align-items: flex-start; } // Ajustei alinhamento
+  .confirm-actions { flex-direction: column-reverse; align-items: stretch }
+}

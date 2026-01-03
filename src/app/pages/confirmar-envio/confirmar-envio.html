@@ -1,0 +1,68 @@
+<!-- src/app/pages/confirmar-envio/confirmar-envio.html -->
+<section class="page page--confirm">
+  <header class="page__header page__header--center">
+    <h1>Confirmar Envio</h1>
+    <p>Revise os detalhes antes de prosseguir</p>
+  </header>
+
+  <div class="confirm-wrapper">
+    <div class="confirm-card">
+      <div class="confirm-row">
+        <div class="confirm-item">
+          <div class="icon-circle">
+            <!-- Material Icon para modelo -->
+            <i class="material-icons">chat_bubble_outline</i>
+          </div>
+          <div>
+            <div class="muted">Modelo selecionado</div>
+            <!-- Acessa o nome do modelo do signal -->
+            <div class="strong">{{ modeloSelecionado()?.nome || 'N/A' }}</div>
+          </div>
+        </div>
+
+        <div class="confirm-item">
+          <div class="icon-box">
+            <!-- Material Icon para contatos -->
+            <i class="material-icons">people_alt</i>
+          </div>
+          <div>
+            <div class="muted">Contatos a receber</div>
+            <!-- Acessa a quantidade de contatos do serviço -->
+            <div class="strong">{{ contatosService.contatos().length }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview">
+        <div class="muted">Prévia da mensagem</div>
+        <!-- Acessa o conteúdo do modelo do signal -->
+        <div class="preview-box">{{ modeloSelecionado()?.conteudo || 'Nenhum modelo selecionado.' }}</div>
+      </div>
+
+      <div class="confirm-actions">
+        <button
+          type="button"
+          class="btn-outline btn-lg"
+          (click)="voltar()"
+          [disabled]="emEnvio()"
+        >
+          <i class="material-icons">arrow_back</i> Voltar
+        </button>
+
+        <button
+          type="button"
+          class="btn-primary btn-lg"
+          (click)="confirmar()"
+          [disabled]="emEnvio()"
+        >
+          <span *ngIf="!emEnvio()">
+            <i class="material-icons">send</i> Confirmar Envio
+          </span>
+          <span *ngIf="emEnvio()">
+            <i class="material-icons spin">sync</i> Enviando...
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

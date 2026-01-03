@@ -1,0 +1,87 @@
+<nav class="sidebar" [class.sidebar--collapsed]="colapsada()">
+  <div class="sidebar__header">
+    <div class="sidebar__logo">
+      <div class="sidebar__logo-icon">
+        WA
+      </div>
+      @if (!colapsada()) {
+        <div class="sidebar__logo-text">
+          <span class="sidebar__logo-title">Lognet / WhatsApp</span>
+          <span class="sidebar__logo-subtitle">Envio de Mensagens em Massa</span>
+        </div>
+      }
+    </div>
+
+    <!-- collapse button removed -->
+  </div>
+
+  <div class="sidebar__separator"></div>
+
+  <ul class="sidebar__menu">
+    <li>
+      <a routerLink="/dashboard" routerLinkActive="active">
+        <span class="sidebar__icon">🏠</span>
+        @if (!colapsada()) {
+          <span class="sidebar__label">Dashboard</span>
+        }
+      </a>
+    </li>
+    
+    <li>
+      <a routerLink="/importar-contatos" routerLinkActive="active">
+        <span class="sidebar__icon">⤓</span>
+        @if (!colapsada()) {
+          <span class="sidebar__label">Importar Contatos</span>
+        }
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/enviar-mensagens" routerLinkActive="active">
+        <span class="sidebar__icon">✉</span>
+        @if (!colapsada()) {
+          <span class="sidebar__label">Enviar Mensagens</span>
+        }
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/instancias" routerLinkActive="active">
+        <span class="sidebar__icon">📶</span>
+        @if (!colapsada()) {
+          <span class="sidebar__label">Instâncias</span>
+        }
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/relatorios" routerLinkActive="active">
+        <span class="sidebar__icon">📄</span>
+        @if (!colapsada()) {
+          <span class="sidebar__label">Relatórios</span>
+        }
+      </a>
+    </li>
+  </ul>
+
+  <div class="sidebar__status">
+    <span class="sidebar__status-indicator"></span>
+    @if (!colapsada()) {
+      <span class="sidebar__status-text">Sistema Online</span>
+    }
+  </div>
+
+  @if (!colapsada()) {
+    <div class="sidebar__footer">
+      <div class="sidebar__version">
+        Versão: {{ appVersion }}
+      </div>
+      <div class="sidebar__credit">
+        © 2026 - Desenvolvido por
+        <a href="https://portfolio.cesaravb.com.br/" target="_blank" rel="noopener noreferrer" class="sidebar__link">
+          César Augusto
+        </a>
+      </div>
+    </div>
+  }
+</nav>

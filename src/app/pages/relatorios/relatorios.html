@@ -1,0 +1,62 @@
+<!-- src/app/pages/relatorios/relatorios.html -->
+<section class="page">
+  <header class="page__header">
+    <h1>Relatórios de Envio</h1>
+    <p>Acompanhe o status e os detalhes dos seus envios de mensagens.</p>
+  </header>
+
+  <div class="card" *ngIf="carregando()">
+    <div class="loading-state">
+      <i class="material-icons spin">sync</i>
+      <span>Carregando relatórios...</span>
+    </div>
+  </div>
+
+  <div class="card error-state" *ngIf="erro()">
+    <i class="material-icons">error_outline</i>
+    <span>{{ erro() }}</span>
+  </div>
+
+  <div class="card empty-state" *ngIf="!carregando() && !erro() && envios().length === 0">
+    <i class="material-icons">inbox</i>
+    <span>Nenhum relatório de envio encontrado.</span>
+    <p class="empty-state-description">Os relatórios aparecerão aqui após você realizar envios de mensagens.</p>
+  </div>
+
+  <div class="card" *ngIf="!carregando() && !erro() && envios().length > 0">
+    <div class="table-responsive">
+      <table class="relatorios-table">
+        <thead>
+          <tr>
+            <th>Envio</th>
+            <th>Modelo</th>
+            <th>Data</th>
+            <th>Contatos</th>
+            <th>Sucesso</th>
+            <th>Erro</th>
+            <th>Status</th>
+            <!-- <th>Ações</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let envio of envios()">
+            <td>{{ envio.nomeArquivo }}</td>
+            <td>{{ envio.nomeModelo }}</td>
+            <td>{{ envio.dataEnvio | date:'short' }}</td>
+            <td>{{ envio.totalContatos }}</td>
+            <td class="text-success">{{ envio.totalSucesso }}</td>
+            <td class="text-error">{{ envio.totalErro }}</td>
+            <td>
+              <span class="status-badge" [ngClass]="getStatusClass(envio.status)">
+                {{ envio.status }}
+              </span>
+            </td>
+            <!-- <td>
+              <button class="btn-secondary btn-sm">Ver Detalhes</button>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

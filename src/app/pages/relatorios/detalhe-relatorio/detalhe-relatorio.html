@@ -1,0 +1,75 @@
+<section class="page">
+  <header class="page__header-detalhe">
+    <button class="btn-voltar" (click)="voltar()">
+      <i class="material-icons">arrow_back</i> Voltar
+    </button>
+    <div class="page__header-detalhe-content">
+      <h1>{{ relatorio()?.nomeArquivo }}</h1>
+      <p>
+        Enviado em
+        {{ relatorio()?.dataEnvio | date : 'dd/MM/yyyy' }} às
+        {{ relatorio()?.dataEnvio | date : 'HH:mm' }}
+      </p>
+    </div>
+    <button class="btn-exportar">
+      <i class="material-icons">download</i> Exportar
+    </button>
+  </header>
+
+  <div class="grid-detalhes">
+    <div class="card card--total">
+      <h2>Total Enviado</h2>
+      <strong>{{ relatorio()?.totalContatos }}</strong>
+    </div>
+
+    <div class="card card--sucesso">
+      <h2>Sucesso</h2>
+      <strong>{{ relatorio()?.totalSucesso }}</strong>
+    </div>
+
+    <div class="card card--erro">
+      <h2>Erros</h2>
+      <strong>{{ relatorio()?.totalErro }}</strong>
+    </div>
+  </div>
+
+  <div class="grid-detalhes-listas">
+    <div class="card card--lista-sucesso">
+      <div class="card__header-lista">
+        <i class="material-icons icon--sucesso">check_circle</i>
+        <h2>Enviados com Sucesso ({{ itensSucesso().length }})</h2>
+      </div>
+      <div class="lista-telefones">
+        <div
+          class="telefone-row"
+          *ngFor="let item of itensSucesso()"
+        >
+          <span class="telefone">{{ item.telefone }}</span>
+          <span class="horario">{{ item.dataEnvio | date : 'HH:mm:ss' }}</span>
+        </div>
+        <div *ngIf="itensSucesso().length === 0" class="lista-vazia">
+          Nenhum envio com sucesso registrado.
+        </div>
+      </div>
+    </div>
+
+    <div class="card card--lista-erro">
+      <div class="card__header-lista">
+        <i class="material-icons icon--erro">cancel</i>
+        <h2>Erros de Envio ({{ itensErro().length }})</h2>
+      </div>
+      <div class="lista-telefones">
+        <div
+          class="telefone-row telefone-row--erro"
+          *ngFor="let item of itensErro()"
+        >
+          <span class="telefone">{{ item.telefone }}</span>
+          <span class="erro-msg">{{ item.mensagemErro }}</span>
+        </div>
+        <div *ngIf="itensErro().length === 0" class="lista-vazia">
+          Nenhum erro registrado.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

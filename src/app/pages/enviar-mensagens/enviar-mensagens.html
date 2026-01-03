@@ -1,0 +1,112 @@
+<!-- src/app/pages/enviar-mensagens/enviar-mensagens.html -->
+<section class="page">
+  <header class="page__header">
+    <h1>Enviar Mensagens</h1>
+    <p>Configure e inicie o envio de mensagens para seus contatos.</p>
+  </header>
+
+  <!-- Seção 1: Informações do Arquivo e Contatos -->
+  <div class="card">
+    <div class="wizard-step-header">
+      <div class="wizard-step-header__number">1</div>
+      <h2 class="wizard-step-header__title">Contatos e Arquivo</h2>
+    </div>
+
+    <!-- Verifica se o signal arquivoAtual() tem um valor (não é null) -->
+    <div class="arquivo-info" *ngIf="arquivoUploadService.arquivoAtual()">
+      <div class="arquivo-info__left">
+        <div class="arquivo-info__icon">
+          <i class="material-icons">check_circle</i>
+        </div>
+        <div>
+          <!-- Acessa o nome do arquivo com optional chaining e o signal -->
+          <strong>{{ arquivoUploadService.arquivoAtual()?.fileName }}</strong>
+          <p>
+            Arquivo carregado com sucesso ({{
+              (arquivoUploadService.arquivoAtual()?.fileSize ?? 0) / 1024 / 1024
+                | number : '1.1-1'
+            }}
+            MB)
+          </p>
+        </div>
+      </div>
+      <div class="contatos-count">
+        <i class="material-icons">people_alt</i>
+        <!-- Acessa o tamanho do array de contatos do signal -->
+        <span>{{ contatosService.contatos().length }} contatos</span>
+      </div>
+    </div>
+    <!-- Exibe esta div se o signal arquivoAtual() for null -->
+    <div class="arquivo-info--empty" *ngIf="!arquivoUploadService.arquivoAtual()">
+      Nenhum arquivo carregado. Por favor, importe os contatos primeiro.
+    </div>
+  </div>
+
+  <!-- Seção 2: Escolha do Modelo de Mensagem -->
+  <div class="card">
+    <div class="wizard-step-header">
+      <div class="wizard-step-header__number">2</div>
+      <h2 class="wizard-step-header__title">Escolha o Modelo de Mensagem</h2>
+    </div>
+
+    <div class="modelos-grid">
+      <!-- Itera sobre o signal modelosDisponiveis() -->
+      @for (modelo of modelosDisponiveis(); track modelo.id) {
+        <div
+          class="modelo-card"
+          [class.modelo-card--selecionado]="modeloSelecionadoId() === modelo.id"
+          (click)="selecionarModelo(modelo.id)"
+        >
+          <div class="modelo-card__header">
+            <h3><span class="modelo-card__icon">💬</span> {{ modelo.titulo }}</h3>
+          </div>
+          <p class="modelo-card__descricao">{{ modelo.descricao }}</p>
+          <div
+            class="modelo-card__selection-indicator"
+            [class.modelo-card__selection-indicator--selected]="
+              modeloSelecionadoId() === modelo.id
+            "
+          >
+            <!-- Exibe o ícone de check se o modelo for selecionado -->
+            @if (modeloSelecionadoId() === modelo.id) {
+              <i class="material-icons">check</i>
+            }
+          </div>
+        </div>
+      } @empty {
+        <div class="modelos-grid--empty">Nenhum modelo de mensagem disponível.</div>
+      }
+    </div>
+
+    <!-- Preview do conteúdo da mensagem -->
+    @if (modeloSelecionado()) {
+      <div class="modelo-preview">
+        <label for="preview-conteudo">Prévia da Mensagem</label>
+        <textarea
+          id="preview-conteudo"
+          class="modelo-preview__textarea"
+          readonly
+        >{{ modeloSelecionado()?.conteudo }}</textarea>
+      </div>
+    }
+  </div>
+
+  <!-- Seção 3: Botão de Envio -->
+  <div class="card card--actions">
+    <!-- Usa o computed isEnvioHabilitado() para desabilitar -->
+    <button
+      class="btn-primary"
+      (click)="enviarMensagens()"
+      [disabled]="!isEnvioHabilitado()"
+    >
+      <span *ngIf="!carregandoEnvio()">
+        <!-- Acessa o tamanho do array de contatos do signal -->
+        Enviar Mensagens ({{ contatosService.contatos().length }})
+        <i class="material-icons">send</i>
+      </span>
+      <span *ngIf="carregandoEnvio()">
+        Enviando... <i class="material-icons spin">sync</i>
+      </span>
+    </button>
+  </div>
+</section>

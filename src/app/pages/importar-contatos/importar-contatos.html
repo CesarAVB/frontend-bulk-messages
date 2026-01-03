@@ -1,0 +1,122 @@
+<!-- src/app/pages/importar-contatos/importar-contatos.html -->
+<section class="page">
+  <header class="page__header">
+    <h1>Importar Contatos</h1>
+    <p>Faça upload de um arquivo XLS com os dados dos contatos.</p>
+  </header>
+
+  <div class="card card--info">
+    <h2>Formato do Arquivo</h2>
+    <p>O arquivo XLS deve conter as seguintes colunas na ordem:</p>
+    <div class="chips">
+      <span class="chip">1. Nome</span>
+      <span class="chip">2. Telefone Primário</span>
+      <span class="chip">3. Telefone Secundário</span>
+      <span class="chip">4. Telefone Terciário</span>
+    </div>
+  </div>
+
+  <!-- Área de upload visível APENAS se NÃO houver arquivo válido no serviço -->
+  <div class="upload-area card" *ngIf="!arquivoNoServico()">
+    <input
+      #fileInput
+      type="file"
+      accept=".xls,.xlsx"
+      (change)="onFileChange($event)"
+      hidden
+      id="file-upload"
+    />
+    <div class="upload-area__drop" (click)="abrirSeletor(fileInput)">
+      <div class="upload-area__icon">
+        <i class="material-icons">description</i>
+      </div>
+      <p class="upload-area__title">Arraste seu arquivo XLS aqui</p>
+      <p class="upload-area__subtitle">ou clique para selecionar</p>
+    </div>
+  </div>
+
+  <!-- Informações do arquivo e pré-visualização visíveis APENAS se HOUVER arquivo válido no serviço -->
+  <div class="card" *ngIf="arquivoNoServico()">
+    <div class="arquivo-info">
+      <div class="arquivo-info__left">
+        <div class="arquivo-info__icon">
+          <i class="material-icons">check_circle</i>
+        </div>
+        <div>
+          <strong>{{ arquivoNoServico()?.fileName }}</strong>
+          <p>
+            Arquivo carregado com sucesso ({{
+              (arquivoNoServico()?.fileSize ?? 0) / 1024 / 1024 | number : '1.1-1'
+            }}
+            MB)
+          </p>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="btn-remove" (click)="removerArquivo()">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+    </div>
+
+    <div class="contatos-titulo">
+      <h2>Contatos Importados ({{ contatos$().length }})</h2>
+      <button
+        type="button"
+        class="btn-primary btn-configurar"
+        (click)="proximoPasso()"
+        [disabled]="!arquivoNoServico() || contatos$().length === 0"
+      >
+        Configurar Envio
+        <i class="material-icons">send</i>
+      </button>
+    </div>
+
+    <div class="tabela-contatos">
+      <div class="tabela-contatos__header">
+        <span>Nome</span>
+        <span><i class="material-icons">phone</i> Primário</span>
+        <span><i class="material-icons">phone</i> Secundário</span>
+        <span><i class="material-icons">phone</i> Terciário</span>
+      </div>
+      <div
+        class="tabela-contatos__row"
+        *ngFor="let c of contatosPaginados()"
+      >
+        <span class="nome"><span class="inicial">{{ c.nome.charAt(0).toUpperCase() }}</span> {{ c.nome }}</span>
+        <span>{{ c.telefonePrimario || '—' }}</span>
+        <span>{{ c.telefoneSecundario || '—' }}</span>
+        <span>{{ c.telefoneTerciario || '—' }}</span>
+      </div>
+      <div class="tabela-contatos__empty" *ngIf="contatos$().length === 0">
+        Nenhum contato encontrado no arquivo.
+      </div>
+    </div>
+
+    <!-- Paginação -->
+    <div class="tabela-paginacao" *ngIf="contatos$().length > 0">
+      <div class="tabela-paginacao__info">
+        <span>Exibindo {{ (paginaAtual() - 1) * itensPorPagina + 1 }} - {{ Math.min(paginaAtual() * itensPorPagina, contatos$().length) }} de {{ contatos$().length }} contatos</span>
+      </div>
+      <div class="tabela-paginacao__controls">
+        <button 
+          type="button" 
+          class="tabela-paginacao__btn" 
+          (click)="paginaAnterior()"
+          [disabled]="paginaAtual() === 1"
+        >
+          <i class="material-icons">chevron_left</i>
+        </button>
+        <span class="tabela-paginacao__info-pagina">Página {{ paginaAtual() }} de {{ totalPaginas() }}</span>
+        <button 
+          type="button" 
+          class="tabela-paginacao__btn" 
+          (click)="proximaPagina()"
+          [disabled]="paginaAtual() === totalPaginas()"
+        >
+          <i class="material-icons">chevron_right</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

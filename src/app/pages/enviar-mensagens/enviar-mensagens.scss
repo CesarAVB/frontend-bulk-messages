@@ -1,0 +1,306 @@
+/* src/app/pages/enviar-mensagens/enviar-mensagens.scss */
+
+.page {
+  &__header {
+    margin-bottom: 24px;
+
+    h1 {
+      font-size: 26px;
+      margin: 0 0 4px;
+    }
+
+    p {
+      margin: 0;
+      color: #6b7280;
+    }
+  }
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  margin-bottom: 20px; // Espaçamento entre os cards
+}
+
+.wizard-step-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+
+  &__number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #0950C3; // Azul primário
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    margin-right: 12px;
+  }
+
+  &__title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+  }
+}
+
+.arquivo-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ecfdf5; // Fundo verde claro para sucesso
+  border: 1px solid #a7f3d0; // Borda verde
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px; // Espaçamento antes da próxima seção
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__icon {
+    font-size: 24px;
+    color: #16a34a; // Ícone verde
+  }
+
+  strong {
+    font-size: 16px;
+    color: #111827;
+  }
+
+  p {
+    font-size: 13px;
+    color: #34d399; // Texto verde mais claro
+    margin: 0;
+  }
+
+  .contatos-count {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #16a34a;
+
+    i {
+      font-size: 18px;
+    }
+  }
+}
+
+.arquivo-info--empty {
+  background: #fef2f2; // Fundo vermelho claro para vazio/erro
+  border: 1px solid #fecaca; // Borda vermelha
+  color: #dc2626; // Texto vermelho
+  border-radius: 12px;
+  padding: 12px 16px;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.modelos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.modelo-card {
+  background: #f9fafb; // Fundo mais claro para cards não selecionados
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  min-height: 70px; // Altura mínima reduzida para os cards
+
+  &:hover {
+    border-color: #a5b4fc; // Azul claro no hover
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+  }
+
+  &--selecionado {
+    background: #eff6ff; // Fundo azul claro para selecionado
+    border-color: #2563eb; // Borda azul primária
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  &__icon {
+    font-size: 24px;
+    color: #2563eb; // Ícone azul
+  }
+
+  &__descricao {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0 0 8px;
+  }
+
+  &__conteudo {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.5;
+    margin: 0;
+    max-height: 60px; // Limita a altura do conteúdo
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__selection-indicator {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 2px solid #d1d5db; // Borda cinza para não selecionado
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #fff; // Cor do check (invisível por padrão)
+    font-size: 16px;
+    transition: all 0.2s ease-in-out;
+
+    &--selected {
+      background: #22c55e; // Fundo verde para selecionado
+      border-color: #22c55e;
+      color: #fff; // Ícone de check branco
+    }
+  }
+}
+
+.modelo-preview {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 12px;
+  }
+
+  &__textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #374151;
+    background: #f9fafb;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: #2563eb;
+      background: #fff;
+    }
+  }
+}
+
+.modelos-grid--empty {
+  text-align: center;
+  padding: 20px;
+  color: #6b7280;
+  font-style: italic;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.card--actions {
+  display: flex;
+  justify-content: flex-end; // Alinha o botão à direita
+  padding: 20px 24px; // Garante padding consistente
+}
+
+.btn-primary {
+  background: #0950C3;
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px 24px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s ease, opacity 0.2s ease;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:hover {
+    background: #1d4ed8;
+  }
+
+  &:disabled {
+    background: #93c5fd;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  i {
+    font-size: 20px;
+  }
+
+  .spin {
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

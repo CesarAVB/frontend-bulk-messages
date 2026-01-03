@@ -1,0 +1,129 @@
+/* src/app/pages/relatorios/relatorios.scss */
+
+.page {
+  &__header {
+    margin-bottom: 24px;
+
+    h1 {
+      font-size: 26px;
+      margin: 0 0 4px;
+    }
+
+    p {
+      margin: 0;
+      color: #6b7280;
+    }
+  }
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  margin-bottom: 20px;
+}
+
+.loading-state, .error-state, .empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 30px;
+  font-size: 16px;
+  color: #4b5563;
+
+  i {
+    font-size: 24px;
+    color: #9ca3af;
+  }
+}
+
+.error-state {
+  color: #dc2626;
+  i { color: #ef4444; }
+}
+
+.empty-state {
+  flex-direction: column;
+  padding: 50px 30px;
+  text-align: center;
+
+  i {
+    font-size: 64px;
+    color: #d1d5db;
+    margin-bottom: 12px;
+  }
+
+  span {
+    font-size: 18px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+
+  .empty-state-description {
+    margin: 0;
+    font-size: 14px;
+    color: #6b7280;
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.relatorios-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th, td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  th {
+    background: #f9fafb;
+    font-weight: 600;
+    color: #4b5563;
+    font-size: 14px;
+  }
+
+  td {
+    color: #374151;
+    font-size: 14px;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .text-center { text-align: center; }
+  .text-success { color: #16a34a; font-weight: 500; }
+  .text-error { color: #dc2626; font-weight: 500; }
+
+  .status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .status-processing { background: #e0f2fe; color: #0369a1; } /* Azul para processando */
+  .status-success { background: #dcfce7; color: #16a34a; }     /* Verde para sucesso */
+  .status-warning { background: #fef9c3; color: #a16207; }     /* Amarelo para com erros */
+  .status-error { background: #fee2e2; color: #dc2626; }       /* Vermelho para falha */
+  .status-default { background: #e5e7eb; color: #6b7280; }     /* Cinza padrão */
+}

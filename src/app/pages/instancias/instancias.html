@@ -1,0 +1,98 @@
+<section class="instancias-page">
+  <!-- Cabeçalho -->
+  <header class="instancias-page__header">
+    <div>
+      <h1>Instâncias WhatsApp</h1>
+      <p>Gerencie suas conexões com a API do WhatsApp</p>
+    </div>
+
+    <button type="button" class="btn-primary" (click)="carregar()">
+      Atualizar <i class="material-icons">refresh</i>
+    </button>
+  </header>
+
+  <!-- RESUMO -->
+  <section class="instancias-resumo">
+    <div class="resumo-card resumo-card--verde">
+      <div class="resumo-card__icone">
+        <span>📶</span>
+      </div>
+      <div class="resumo-card__conteudo">
+        <span class="resumo-card__titulo">Conectadas</span>
+        <span class="resumo-card__numero">{{ conectadas() }}</span>
+      </div>
+    </div>
+
+    <div class="resumo-card resumo-card--vermelho">
+      <div class="resumo-card__icone">
+        <span>📶</span>
+      </div>
+      <div class="resumo-card__conteudo">
+        <span class="resumo-card__titulo">Desconectadas</span>
+        <span class="resumo-card__numero">{{ desconectadas() }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRID DE INSTÂNCIAS -->
+  <section class="instancias-grid">
+    <article
+      class="instancia-card"
+      *ngFor="let i of instancias()"
+      [class.instancia-card--desconectada]="!i.status_online"
+    >
+      <!-- Foto de Perfil à esquerda -->
+      <div class="instancia-card__icone">
+        @if (i.status_online && i.perfil_foto) {
+          <img 
+            [src]="i.perfil_foto" 
+            [alt]="i.perfil_nome || i.instancia_nome"
+            class="instancia-card__foto"
+            (error)="$event.target.style.display = 'none'"
+          />
+        } @else if (i.status_online) {
+          <div class="instancia-card__icone-bg">
+            {{ ((i.perfil_nome || i.instancia_nome) || 'I').charAt(0).toUpperCase() }}
+          </div>
+        } @else {
+          <div class="instancia-card__icone-offline">
+            <i class="material-icons">cloud_off</i>
+          </div>
+        }
+      </div>
+
+      <!-- Conteúdo -->
+      <div class="instancia-card__conteudo">
+        <div class="instancia-card__titulo">
+          <div>
+            <h3>{{ i.perfil_nome || 'Instância' }}</h3>
+            <span class="instancia-card__numero">
+              {{ i.instancia_nome }}
+            </span>
+          </div>
+
+          <div
+            class="instancia-card__status"
+            [class.instancia-card__status--on]="i.status_online"
+            [class.instancia-card__status--off]="!i.status_online"
+          >
+            <span class="dot"></span>
+            {{ i.status_online ? 'Online' : 'Offline' }}
+          </div>
+        </div>
+
+        <div class="instancia-card__rodape">
+          <div class="instancia-card__sync">
+            <span>📅</span>
+            <span>
+              {{ i.data_criacao | date: 'dd/MM/yyyy HH:mm' }}
+            </span>
+          </div>
+          <div class="instancia-card__origem">
+            <span class="badge">{{ i.api_origem }}</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+</section>
