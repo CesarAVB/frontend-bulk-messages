@@ -1,72 +1,57 @@
 // src/app/pages/relatorios/relatorios.ts
-import { Component, OnInit, signal, OnDestroy } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common'; // Importar DatePipe
+import { Component, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RelatoriosService, RelatorioEnvio } from '../../core/services/relatorios';
-import { interval, Subscription } from 'rxjs';
-import { startWith, switchMap } from 'rxjs/operators';
+import { RouterLink } from '@angular/router';
 
 @Component({
+  selector: 'app-relatorios',
   standalone: true,
-  imports: [CommonModule, DatePipe], // Adicionar DatePipe
+  imports: [CommonModule],
   templateUrl: './relatorios.html',
   styleUrls: ['./relatorios.scss']
 })
-export class RelatoriosComponent implements OnInit, OnDestroy {
-  envios = signal<RelatorioEnvio[]>([]);
+export class RelatoriosComponent implements OnInit {
+
+  // sinais exigidos pelo HTML
   carregando = signal(true);
   erro = signal<string | null>(null);
-
-  private pollingSubscription: Subscription | undefined;
-  private readonly POLLING_INTERVAL_MS = 10000; // Atualiza a cada 10 segundos
+  envios = signal<RelatorioEnvio[]>([]);
 
   constructor(private relatoriosService: RelatoriosService) {}
 
   ngOnInit(): void {
-    this.iniciarPolling();
+    this.carregarRelatorios();
   }
 
-  ngOnDestroy(): void {
-    this.pararPolling();
+  carregarRelatorios(): void {
+    this.carregando.set(true);
+    this.erro.set(null);
+
+    this.relatoriosService.listarRelatorios().subscribe({
+      next: (lista) => {
+        this.envios.set(lista);
+      },
+      error: (err) => {
+        console.error('Erro ao carregar relatórios:', err);
+        this.erro.set('Não foi possível carregar os relatórios.');
+        this.envios.set([]);
+      },
+      complete: () => this.carregando.set(false)
+    });
   }
 
-  iniciarPolling(): void {
-    this.pararPolling(); // Garante que não há múltiplas subscriptions
-
-    this.pollingSubscription = interval(this.POLLING_INTERVAL_MS)
-      .pipe(
-        startWith(0), // Executa imediatamente na inicialização
-        switchMap(() => this.relatoriosService.listarRelatorios())
-      )
-      .subscribe({
-        next: (data) => {
-          this.envios.set(data);
-          this.carregando.set(false);
-          this.erro.set(null);
-          console.log('Relatórios atualizados:', data);
-        },
-        error: (err) => {
-          console.error('Erro ao carregar relatórios:', err);
-          this.erro.set('Não foi possível carregar os relatórios. Tente novamente mais tarde.');
-          this.carregando.set(false);
-        }
-      });
-  }
-
-  pararPolling(): void {
-    if (this.pollingSubscription) {
-      this.pollingSubscription.unsubscribe();
-      this.pollingSubscription = undefined;
-    }
-  }
-
-  // Função auxiliar para obter a classe CSS do status
-  getStatusClass(status: RelatorioEnvio['status']): string {
+  // Método usado no HTML
+  getStatusClass(status: string): string {
     switch (status) {
-      case 'PROCESSANDO': return 'status-processing';
-      case 'CONCLUIDO': return 'status-success';
-      case 'CONCLUIDO_COM_ERROS': return 'status-warning';
-      case 'FALHA': return 'status-error';
-      default: return 'status-default';
+      case 'CONCLUIDO':
+        return 'status-success';
+      case 'CONCLUIDO_COM_ERROS':
+        return 'status-warning';
+      case 'FALHA':
+        return 'status-error';
+      default:
+        return 'status-processing';
     }
   }
 }

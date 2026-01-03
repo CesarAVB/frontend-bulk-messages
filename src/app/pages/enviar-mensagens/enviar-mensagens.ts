@@ -110,13 +110,13 @@ export class EnviarMensagensComponent implements OnInit {
       payload.conteudoMensagem,
       payload.contatos
     ).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log('Envio iniciado com sucesso!', response);
         this.arquivoUploadService.clearArquivo();
         this.contatosService.contatos.set([]);
         this.router.navigate(['/relatorios']);
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Erro ao iniciar o envio:', error);
       },
       complete: () => {

@@ -1,65 +1,58 @@
 import { Component, OnInit, signal } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router'; // Importar ActivatedRoute e Router
 import { RelatoriosService, RelatorioEnvio, ItemEnvio } from '../../../core/services/relatorios';
 
 @Component({
+  selector: 'app-detalhe-relatorio',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './detalhe-relatorio.html',
   styleUrls: ['./detalhe-relatorio.scss']
 })
 export class DetalheRelatorioComponent implements OnInit {
+
   relatorio = signal<RelatorioEnvio | null>(null);
   itens = signal<ItemEnvio[]>([]);
+  carregando = signal(true);
 
   constructor(
-    private route: ActivatedRoute, // Para pegar o ID da URL
-    private router: Router, // Para voltar
+    private route: ActivatedRoute,
+    private router: Router,
     private relatoriosService: RelatoriosService
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const relatorioId = params.get('id');
-      if (relatorioId) {
-        // Buscar o relatório específico
-        this.relatoriosService.obterRelatorioPorId(relatorioId).subscribe(
-          (relatorioData) => {
-            this.relatorio.set(relatorioData);
-            // Se o relatório foi encontrado, buscar os itens
-            if (relatorioData?.id) {
-              this.relatoriosService.itensDoEnvio(relatorioData.id).subscribe(
-                (itensData) => {
-                  this.itens.set(itensData);
-                },
-                (error) => {
-                  console.error('Erro ao carregar itens do envio:', error);
-                }
-              );
-            }
-          },
-          (error) => {
-            console.error('Erro ao carregar relatório:', error);
-            // Tratar erro, talvez redirecionar ou exibir mensagem
-            this.router.navigate(['/relatorios']); // Volta para a lista se o relatório não for encontrado
-          }
-        );
-      } else {
-        this.router.navigate(['/relatorios']); // Volta para a lista se não tiver ID
-      }
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (!id) {
+      console.error("ID do relatório não encontrado.");
+      return;
+    }
+
+    this.relatoriosService.obterRelatorioPorId(id).subscribe({
+      next: (detalhe) => this.relatorio.set(detalhe),
+      error: (error) => console.error("Erro ao buscar relatório:", error)
+    });
+
+    this.relatoriosService.itensDoEnvio(id).subscribe({
+      next: (lista) => this.itens.set(lista),
+      error: (error) => console.error("Erro ao buscar itens:", error),
+      complete: () => this.carregando.set(false)
     });
   }
 
-  itensSucesso() {
+  // ===== MÉTODOS QUE O HTML PRECISA =====
+
+  voltar(): void {
+    this.router.navigate(['/relatorios']);
+  }
+
+  itensSucesso(): ItemEnvio[] {
     return this.itens().filter(i => i.status === 'SUCESSO');
   }
 
-  itensErro() {
+  itensErro(): ItemEnvio[] {
     return this.itens().filter(i => i.status === 'ERRO');
-  }
-
-  voltar(): void {
-    this.router.navigate(['/relatorios']); // Volta para a lista de relatórios
   }
 }

@@ -4,19 +4,20 @@ import { CommonModule } from '@angular/common';
 import { ContatosService, Contato } from '../../core/services/contatos';
 import { InstanciasService, InstanciaWhatsapp } from '../../core/services/instancias';
 import { RelatoriosService, RelatorioEnvio } from '../../core/services/relatorios';
-import { RouterLink } from '@angular/router'; // Importar RouterLink
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink], // Adicionar RouterLink aqui
+  imports: [CommonModule, RouterLink],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
 })
 export class DashboardComponent implements OnInit {
+
   contatos = signal<Contato[]>([]);
   instancias = signal<InstanciaWhatsapp[]>([]);
-  relatorios = signal<RelatorioEnvio[]>([]); // Agora é uma lista de relatórios
+  relatorios = signal<RelatorioEnvio[]>([]);  // <- CORRIGIDO
 
   carregando = signal(true);
 
@@ -29,27 +30,23 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.carregando.set(true);
 
-    // Carrega contatos
+    // Contatos
     this.contatos.set(this.contatosService.contatos());
 
-    // Carrega instâncias
+    // Instâncias
     this.instanciasService.listar().subscribe({
-      next: (data) => {
-        this.instancias.set(data);
-      },
-      error: (err) => {
-        console.error('Erro ao carregar instâncias', err);
+      next: (data) => this.instancias.set(data),
+      error: (error) => {
+        console.error('Erro ao carregar instâncias', error);
         this.instancias.set([]);
       }
     });
 
-    // Carrega TODOS os relatórios para as métricas e atividade recente
+    // Relatórios (atividade recente + métricas)
     this.relatoriosService.listarRelatorios().subscribe({
-      next: (data) => {
-        this.relatorios.set(data);
-      },
-      error: (err) => {
-        console.error('Erro ao carregar relatórios', err);
+      next: (data) => this.relatorios.set(data),
+      error: (error) => {
+        console.error('Erro ao carregar relatórios', error);
         this.relatorios.set([]);
       }
     });
@@ -57,41 +54,50 @@ export class DashboardComponent implements OnInit {
     this.carregando.set(false);
   }
 
-  // Métricas
-  contatosCount = computed(() => this.contatos()?.length || 0);
+  // -------- MÉTRICAS --------
+
+  contatosCount = computed(() =>
+    this.contatos()?.length || 0
+  );
 
   totalEnvios = computed(() => {
-    const relatorios = this.relatorios();
-    if (!relatorios || relatorios.length === 0) return 0;
-    return relatorios.reduce((sum, r) => sum + (r.totalContatos || 0), 0);
+    const rel = this.relatorios();
+    if (!rel || rel.length === 0) return 0;
+    return rel.reduce((s, r) => s + (r.totalContatos || 0), 0);
   });
 
   enviosComSucesso = computed(() => {
-    const relatorios = this.relatorios();
-    if (!relatorios || relatorios.length === 0) return 0;
-    return relatorios.reduce((sum, r) => sum + (r.totalSucesso || 0), 0);
+    const rel = this.relatorios();
+    if (!rel || rel.length === 0) return 0;
+    return rel.reduce((s, r) => s + (r.totalSucesso || 0), 0);
   });
 
-  instanciasAtivas = computed(() => {
-    const instancias = this.instancias();
-    if (!instancias || instancias.length === 0) return 0;
-    return instancias.filter(i => i.status_online).length;
-  });
+  instanciasAtivas = computed(() =>
+    this.instancias()?.filter(i => i.status_online).length || 0
+  );
 
-  instanciasTotal = computed(() => this.instancias()?.length || 0);
+  instanciasTotal = computed(() =>
+    this.instancias()?.length || 0
+  );
 
   taxaSucesso = computed(() => {
     const total = this.totalEnvios();
     const sucesso = this.enviosComSucesso();
     if (total === 0) return 0;
-    const taxa = Math.round((sucesso / total) * 100);
-    return isNaN(taxa) ? 0 : taxa;
+    return Math.round((sucesso / total) * 100);
   });
 
-  // Atividade Recente (exibe os últimos 5 envios, por exemplo)
+  // -------- ATIVIDADE RECENTE --------
+
   recentEnvios = computed(() => {
-    return this.relatorios()
-      .sort((a, b) => new Date(b.dataEnvio).getTime() - new Date(a.dataEnvio).getTime())
-      .slice(0, 5); // Exibe os 5 mais recentes
+    const rel = this.relatorios();
+    if (!rel || rel.length === 0) return [];
+
+    return rel
+      .sort((a, b) =>
+        new Date(b.dataEnvio).getTime() -
+        new Date(a.dataEnvio).getTime()
+      )
+      .slice(0, 5);
   });
 }
