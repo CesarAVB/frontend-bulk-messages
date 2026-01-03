@@ -2,12 +2,12 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RelatoriosService, RelatorioEnvio } from '../../core/services/relatorios';
-import { RouterLink } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-relatorios',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './relatorios.html',
   styleUrls: ['./relatorios.scss']
 })
@@ -18,7 +18,10 @@ export class RelatoriosComponent implements OnInit {
   erro = signal<string | null>(null);
   envios = signal<RelatorioEnvio[]>([]);
 
-  constructor(private relatoriosService: RelatoriosService) {}
+  constructor(
+    private relatoriosService: RelatoriosService, 
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.carregarRelatorios();
@@ -54,4 +57,8 @@ export class RelatoriosComponent implements OnInit {
         return 'status-processing';
     }
   }
+
+  irParaDetalhe(id: string) {
+  this.router.navigate(['/relatorios', id]);
+}
 }
