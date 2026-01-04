@@ -79,10 +79,6 @@
           [class.modelo-card--selecionado]="modeloSelecionadoId() === modelo.id"
           (click)="selecionarModelo(modelo.id)"
         >
-          <div class="modelo-card__header">
-            <h3><span class="modelo-card__icon">💬</span> {{ modelo.titulo }}</h3>
-          </div>
-          <p class="modelo-card__descricao">{{ modelo.descricao }}</p>
           <div
             class="modelo-card__selection-indicator"
             [class.modelo-card__selection-indicator--selected]="
@@ -94,6 +90,10 @@
               <i class="material-icons">check</i>
             }
           </div>
+          <div class="modelo-card__header">
+            <h3><span class="modelo-card__icon">💬</span> {{ modelo.titulo }}</h3>
+          </div>
+          <p class="modelo-card__descricao">{{ modelo.descricao }}</p>
         </div>
       } @empty {
         <div class="modelos-grid--empty">Nenhum modelo de mensagem disponível.</div>

@@ -211,6 +211,7 @@
   cursor: pointer;
   border: 2px solid #e5e7eb;
   transition: all 0.2s ease;
+  position: relative;
 }
 
 .modelo-card:hover {
@@ -246,7 +247,7 @@
   background: #f3f4f6;
   color: #374151;
   font-size: 0.95rem;
-  margin-bottom: 12px;
+  margin-bottom: 0;
   padding: 10px 12px;
   border-radius: 8px;
   border-left: 3px solid #3b82f6;
@@ -257,13 +258,25 @@
 .modelo-card__selection-indicator {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  height: 26px;
-  color: #22c55e;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border-radius: 50%;
+  background: transparent;
+  color: transparent;
+  transition: all 0.2s ease;
 }
 
 .modelo-card__selection-indicator--selected {
-  color: #22c55e;
+  background: #22c55e;
+  color: white;
+  
+  i {
+    font-size: 18px;
+  }
 }
 
 .modelo-preview {
