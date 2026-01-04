@@ -92,32 +92,39 @@
 
   <!-- Atividade Recente -->
   <div class="card dashboard__recent-activity">
-    <h2>Atividade Recente</h2>
+    <div class="recent-activity-header">
+      <h2>Atividade Recente</h2>
+      <button class="btn-view-all" routerLink="/relatorios">
+        Ver todos <i class="material-icons">arrow_forward</i>
+      </button>
+    </div>
     <div class="recent-list">
       @for (envio of recentEnvios(); track envio.id) {
-        <div class="recent-item">
+        <div class="recent-item" routerLink="/relatorios/{{ envio.id }}">
           <div class="recent-item__icon">
-            <i class="material-icons">send</i>
+            <i class="material-icons">description</i>
           </div>
           <div class="recent-item__info">
             <span class="recent-item__file">{{ envio.nomeArquivo }}</span>
-            <span class="recent-item__model"
-              >{{ envio.nomeModelo }}</span
-            >
+            <span class="recent-item__model">Modelo: {{ envio.nomeModelo }}</span>
           </div>
           <div class="recent-item__stats">
-            <span class="recent-item__success"
-              ><i class="material-icons">check_circle</i>
-              {{ envio.totalSucesso }}</span
-            >
-            <span class="recent-item__error"
-              ><i class="material-icons">cancel</i> {{ envio.totalErro }}</span
-            >
+            <div class="stat-badge stat-badge--success">
+              <i class="material-icons">check_circle</i>
+              <span>{{ envio.totalSucesso }}</span>
+            </div>
+            <div class="stat-badge stat-badge--error">
+              <i class="material-icons">cancel</i>
+              <span>{{ envio.totalErro }}</span>
+            </div>
           </div>
+          <i class="material-icons recent-item__chevron">chevron_right</i>
         </div>
       } @empty {
         <div class="recent-item--empty">
-          Nenhuma atividade recente encontrada.
+          <i class="material-icons">inbox</i>
+          <p>Nenhuma atividade recente encontrada</p>
+          <span>Os envios recentes aparecerão aqui</span>
         </div>
       }
     </div>

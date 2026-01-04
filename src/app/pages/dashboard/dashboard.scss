@@ -228,11 +228,50 @@
   }
 
   &__recent-activity {
-    h2 {
-      font-size: 20px;
-      font-weight: 600;
-      color: #1e293b;
+    border: 3px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: #0950c3;
+      box-shadow: 0 8px 20px rgba(9, 80, 195, 0.15);
+    }
+
+    .recent-activity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 20px;
+
+      h2 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #1e293b;
+        margin: 0;
+      }
+
+      .btn-view-all {
+        background: transparent;
+        color: #0950c3;
+        border: none;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #eff6ff;
+        }
+
+        i {
+          font-size: 18px;
+        }
+      }
     }
   }
 
@@ -241,77 +280,129 @@
       display: flex;
       align-items: center;
       gap: 16px;
-      padding: 12px 0;
-      border-bottom: 1px solid #e2e8f0;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 2px solid transparent;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #fafafa;
+
+      &:hover {
+        background: #fff;
+        border-color: #0950c3;
+        box-shadow: 0 4px 12px rgba(9, 80, 195, 0.1);
+        transform: translateX(4px);
+      }
 
       &:last-child {
-        border-bottom: none;
+        margin-bottom: 0;
       }
 
       &__icon {
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
-        background: #e0f2fe;
-        color: #0369a1;
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
+        font-size: 20px;
         flex-shrink: 0;
+        box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
       }
 
       &__info {
         flex: 1;
         display: flex;
         flex-direction: column;
+        gap: 4px;
       }
 
       &__file {
-        font-weight: 500;
-        color: #1e293b;
+        font-weight: 600;
+        color: #0f172a;
         font-size: 15px;
       }
 
       &__model {
         color: #64748b;
         font-size: 13px;
-        margin-top: 2px;
       }
 
       &__stats {
         display: flex;
-        gap: 16px;
-        font-size: 14px;
-        font-weight: 600;
-
-        span {
-          display: flex;
-          align-items: center;
-          gap: 4px;
-        }
+        gap: 8px;
       }
 
-      &__success {
-        color: #16a34a;
-        i {
-          font-size: 18px;
-        }
+      &__chevron {
+        color: #cbd5e1;
+        font-size: 20px;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
       }
 
-      &__error {
-        color: #ef4444;
-        i {
-          font-size: 18px;
-        }
+      &:hover &__chevron {
+        color: #0950c3;
+        transform: translateX(4px);
+      }
+    }
+
+    .stat-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+
+      i {
+        font-size: 16px;
+      }
+
+      &--success {
+        background: #dcfce7;
+        color: #059669;
+        border: 1px solid #86efac;
+      }
+
+      &--error {
+        background: #fee2e2;
+        color: #dc2626;
+        border: 1px solid #fca5a5;
       }
     }
 
     .recent-item--empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 20px;
       text-align: center;
       color: #64748b;
-      padding: 20px;
-      font-style: italic;
+      background: #fafafa;
+      border-radius: 12px;
+
+      i {
+        font-size: 64px;
+        color: #cbd5e1;
+        margin-bottom: 16px;
+      }
+
+      p {
+        font-size: 16px;
+        font-weight: 600;
+        color: #475569;
+        margin: 0 0 8px 0;
+      }
+
+      span {
+        font-size: 14px;
+        color: #94a3b8;
+      }
     }
   }
 }
