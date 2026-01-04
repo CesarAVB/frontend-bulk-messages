@@ -1,14 +1,26 @@
 <section class="detalhe-relatorio-page">
-  <div class="titulo-container">
-    <h1 class="titulo-arquivo">
-      {{ relatorio()?.nomeArquivo }}
-    </h1>
-    <button class="btn-voltar" (click)="voltar()">
-      <i class="material-icons">arrow_back</i> Voltar
-    </button>
-  </div>
-  <div class="sub-info">
-    Enviado em {{ relatorio()?.dataEnvio | date:'dd \'de\' MMMM \'de\' y \'às\' HH:mm' }}
+  <!-- HEADER -->
+  <header class="page__header">
+    <div class="titulo-container">
+      <div>
+        <h1>Detalhes do Envio</h1>
+        <p>Visualize informações detalhadas e o status de cada mensagem enviada.</p>
+      </div>
+      <button class="btn-voltar" (click)="voltar()">
+        <i class="material-icons">arrow_back</i>
+        Voltar
+      </button>
+    </div>
+  </header>
+
+  <div class="info-arquivo">
+    <div class="info-arquivo__principal">
+      <i class="material-icons">description</i>
+      <div>
+        <h2 class="info-arquivo__nome">{{ relatorio()?.nomeArquivo }}</h2>
+        <p class="info-arquivo__data">Enviado em {{ relatorio()?.dataEnvio | date:'dd \'de\' MMMM \'de\' y \'às\' HH:mm' }}</p>
+      </div>
+    </div>
   </div>
 
   <div class="resumo-cards">
