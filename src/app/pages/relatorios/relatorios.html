@@ -41,53 +41,73 @@
     </div>
   }
 
-  <!-- TABELA DE RELATÓRIOS -->
+  <!-- LISTA DE RELATÓRIOS -->
   @if (!carregando() && !erro() && envios().length > 0) {
-    <div class="card table-card">
-      <div class="table-responsive">
+    <div class="relatorios-list">
+      @for (envio of envios(); track envio.id) {
+        <div class="relatorio-card" (click)="irParaDetalhe(envio.id)">
+          <!-- Cabeçalho com arquivo e modelo -->
+          <div class="relatorio-card__header">
+            <div class="relatorio-card__info-principal">
+              <i class="material-icons relatorio-card__icone">description</i>
+              <div class="relatorio-card__titulos">
+                <h3 class="relatorio-card__nome-arquivo">{{ envio.nomeArquivo }}</h3>
+                <p class="relatorio-card__modelo">Modelo: {{ envio.nomeModelo }}</p>
+              </div>
+            </div>
+            <i class="material-icons relatorio-card__chevron">chevron_right</i>
+          </div>
 
-        <table class="relatorios-table">
-        <thead>
-          <tr>
-            <th>Arquivo</th>
-            <th>Modelo</th>
-            <th>Data</th>
-            <th>Total</th>
-            <th>Sucesso</th>
-            <th>Erro</th>
-            <th>Tempo</th>
-            <th>Status</th>
-          </tr>
-        </thead>
+          <!-- Linha com estatísticas -->
+          <div class="relatorio-card__stats">
+            <div class="stat-item">
+              <i class="material-icons stat-item__icone">schedule</i>
+              <div class="stat-item__content">
+                <span class="stat-item__label">Data</span>
+                <span class="stat-item__valor">{{ envio.dataEnvio | date:'dd/MM/yyyy HH:mm' }}</span>
+              </div>
+            </div>
 
-        <tbody>
-          @for (envio of envios(); track envio.id) {
-            <tr 
-              class="clickable-row"
-              (click)="irParaDetalhe(envio.id)"
-            >
-            <td>{{ envio.nomeArquivo }}</td>
-            <td>{{ envio.nomeModelo }}</td>
-            <td>{{ envio.dataEnvio | date:'short' }}</td>
-            <td>{{ envio.totalContatos }}</td>
-            <td class="text-success">{{ envio.totalSucesso }}</td>
-            <td class="text-error">{{ envio.totalErro }}</td>
-            <td class="text-tempo">{{ calcularTempoProcessamento(envio) }}</td>
+            <div class="stat-item stat-item--success">
+              <i class="material-icons stat-item__icone">check_circle</i>
+              <div class="stat-item__content">
+                <span class="stat-item__label">Sucesso</span>
+                <span class="stat-item__valor">{{ envio.totalSucesso }}</span>
+              </div>
+            </div>
 
-            <td>
-              <span 
-                class="status-badge" 
-                [ngClass]="getStatusClass(envio.status)"
-              >
-                {{ envio.status }}
-              </span>
-            </td>
-            </tr>
-          }
-        </tbody>
-      </table>
+            <div class="stat-item stat-item--error">
+              <i class="material-icons stat-item__icone">cancel</i>
+              <div class="stat-item__content">
+                <span class="stat-item__label">Erros</span>
+                <span class="stat-item__valor">{{ envio.totalErro }}</span>
+              </div>
+            </div>
 
-      </div>
+            <div class="stat-item">
+              <i class="material-icons stat-item__icone">timer</i>
+              <div class="stat-item__content">
+                <span class="stat-item__label">Tempo</span>
+                <span class="stat-item__valor">{{ calcularTempoProcessamento(envio) }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Barra de progresso -->
+          <div class="relatorio-card__progresso">
+            <div class="progresso-info">
+              <span class="progresso-label">Taxa de sucesso</span>
+              <span class="progresso-percentual">{{ calcularTaxaSucesso(envio) }}%</span>
+            </div>
+            <div class="progresso-barra">
+              <div 
+                class="progresso-barra__preenchimento" 
+                [style.width.%]="calcularTaxaSucesso(envio)"
+              ></div>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   }
 

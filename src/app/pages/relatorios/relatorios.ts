@@ -95,4 +95,15 @@ export class RelatoriosComponent implements OnInit {
       return `${diffSegundos}s`;
     }
   }
+
+  // Calcula a taxa de sucesso em porcentagem
+  calcularTaxaSucesso(relatorio: RelatorioEnvio): number {
+    const total = relatorio.totalSucesso + relatorio.totalErro;
+    
+    if (total === 0) {
+      return 0;
+    }
+
+    return Math.round((relatorio.totalSucesso / total) * 100);
+  }
 }
