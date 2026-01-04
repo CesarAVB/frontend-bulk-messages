@@ -111,6 +111,63 @@
   }
 }
 
+.card--info {
+  background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+  border: 2px solid #93c5fd;
+  border-left: 4px solid #3b82f6;
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.info-icon {
+  color: #3b82f6;
+  font-size: 28px;
+}
+
+.info-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e40af;
+  margin: 0;
+}
+
+.info-text {
+  font-size: 14px;
+  color: #374151;
+  margin: 0 0 12px 0;
+  line-height: 1.6;
+}
+
+.info-list {
+  margin: 0 0 16px 0;
+  padding-left: 20px;
+  
+  li {
+    font-size: 14px;
+    color: #374151;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+}
+
+.info-note {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.6;
+  padding-top: 12px;
+  border-top: 1px solid #bfdbfe;
+  
+  em {
+    font-style: italic;
+  }
+}
+
 .card--actions {
   display: flex;
   justify-content: flex-end;
