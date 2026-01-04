@@ -36,6 +36,6 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT }}
-          source: dist/whatsapp-sender/*              # Conteúdo do Angular
+          source: dist/whatsapp-sender/browser/*      # Conteúdo do Angular
           target: /var/www/html/projetos_web/message  # volume do host
           strip_components: 1                         # remove a pasta dist do caminho
