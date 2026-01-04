@@ -130,10 +130,11 @@ $white-weak: #e1e6f0;
   }
 
   &__icon {
-    width: 20px;
-    font-size: 14px;
-    margin-right: 8px;
+    width: 24px;
+    font-size: 20px;
+    margin-right: 12px;
     text-align: center;
+    filter: brightness(0) invert(1);
   }
 
   &__status {
