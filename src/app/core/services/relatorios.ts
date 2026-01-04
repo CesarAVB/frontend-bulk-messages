@@ -79,7 +79,9 @@
         totalContatos: raw.total_contatos,
         totalSucesso: raw.total_sucesso,
         totalErro: raw.total_erro,
-        status: raw.status
+        status: raw.status,
+        dataCriacao: raw.created_at,
+        dataAtualizacao: raw.updated_at
       };
     }
 
@@ -111,6 +113,8 @@
     totalErro: number;
 
     status: 'PROCESSANDO' | 'CONCLUIDO' | 'CONCLUIDO_COM_ERROS' | 'FALHA';
+    dataCriacao: string;
+    dataAtualizacao: string;
   }
 
   export interface ItemEnvio {

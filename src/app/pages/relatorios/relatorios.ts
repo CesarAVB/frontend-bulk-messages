@@ -71,4 +71,28 @@ export class RelatoriosComponent implements OnInit {
       this.router.navigate(['/relatorios', id]);
     }
   }
+
+  // Calcula o tempo de processamento entre dataCriacao e dataAtualizacao
+  calcularTempoProcessamento(relatorio: RelatorioEnvio): string {
+    if (!relatorio.dataCriacao || !relatorio.dataAtualizacao) {
+      return '-';
+    }
+
+    const dataInicio = new Date(relatorio.dataCriacao);
+    const dataFim = new Date(relatorio.dataAtualizacao);
+    const diffMs = dataFim.getTime() - dataInicio.getTime();
+
+    // Converte para segundos, minutos, horas
+    const diffSegundos = Math.floor(diffMs / 1000);
+    const diffMinutos = Math.floor(diffSegundos / 60);
+    const diffHoras = Math.floor(diffMinutos / 60);
+
+    if (diffHoras > 0) {
+      return `${diffHoras}h ${diffMinutos % 60}m`;
+    } else if (diffMinutos > 0) {
+      return `${diffMinutos}m ${diffSegundos % 60}s`;
+    } else {
+      return `${diffSegundos}s`;
+    }
+  }
 }
