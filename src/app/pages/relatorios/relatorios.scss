@@ -133,7 +133,7 @@
   background: #ffffff;
   border: 1.5px solid #e0e7ef;
   border-radius: 12px;
-  padding: 20px;
+  padding: 16px 20px;
   cursor: pointer;
   transition: all 0.2s ease;
 
@@ -141,6 +141,14 @@
     border-color: #0950c3;
     box-shadow: 0 4px 12px rgba(9, 80, 195, 0.15);
     transform: translateY(-2px);
+  }
+
+  /* Linha principal com info à esquerda e stats à direita */
+  &__linha-principal {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 12px;
   }
 
   /* Cabeçalho do card */
@@ -192,18 +200,17 @@
   /* Estatísticas em linha */
   &__stats {
     display: flex;
-    gap: 24px;
-    margin-bottom: 16px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #f3f4f6;
-    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
   }
 
   /* Barra de progresso */
   &__progresso {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
   }
 }
 

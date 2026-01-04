@@ -46,8 +46,9 @@
     <div class="relatorios-list">
       @for (envio of envios(); track envio.id) {
         <div class="relatorio-card" (click)="irParaDetalhe(envio.id)">
-          <!-- Cabeçalho com arquivo e modelo -->
-          <div class="relatorio-card__header">
+          <!-- Linha principal: info à esquerda + estatísticas à direita -->
+          <div class="relatorio-card__linha-principal">
+            <!-- Info principal (arquivo e modelo) -->
             <div class="relatorio-card__info-principal">
               <i class="material-icons relatorio-card__icone">description</i>
               <div class="relatorio-card__titulos">
@@ -55,42 +56,44 @@
                 <p class="relatorio-card__modelo">Modelo: {{ envio.nomeModelo }}</p>
               </div>
             </div>
+
+            <!-- Estatísticas à direita -->
+            <div class="relatorio-card__stats">
+              <div class="stat-item">
+                <i class="material-icons stat-item__icone">schedule</i>
+                <div class="stat-item__content">
+                  <span class="stat-item__label">Data</span>
+                  <span class="stat-item__valor">{{ envio.dataEnvio | date:'dd/MM/yyyy HH:mm' }}</span>
+                </div>
+              </div>
+
+              <div class="stat-item stat-item--success">
+                <i class="material-icons stat-item__icone">check_circle</i>
+                <div class="stat-item__content">
+                  <span class="stat-item__label">Sucesso</span>
+                  <span class="stat-item__valor">{{ envio.totalSucesso }}</span>
+                </div>
+              </div>
+
+              <div class="stat-item stat-item--error">
+                <i class="material-icons stat-item__icone">cancel</i>
+                <div class="stat-item__content">
+                  <span class="stat-item__label">Erros</span>
+                  <span class="stat-item__valor">{{ envio.totalErro }}</span>
+                </div>
+              </div>
+
+              <div class="stat-item">
+                <i class="material-icons stat-item__icone">timer</i>
+                <div class="stat-item__content">
+                  <span class="stat-item__label">Tempo</span>
+                  <span class="stat-item__valor">{{ calcularTempoProcessamento(envio) }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chevron -->
             <i class="material-icons relatorio-card__chevron">chevron_right</i>
-          </div>
-
-          <!-- Linha com estatísticas -->
-          <div class="relatorio-card__stats">
-            <div class="stat-item">
-              <i class="material-icons stat-item__icone">schedule</i>
-              <div class="stat-item__content">
-                <span class="stat-item__label">Data</span>
-                <span class="stat-item__valor">{{ envio.dataEnvio | date:'dd/MM/yyyy HH:mm' }}</span>
-              </div>
-            </div>
-
-            <div class="stat-item stat-item--success">
-              <i class="material-icons stat-item__icone">check_circle</i>
-              <div class="stat-item__content">
-                <span class="stat-item__label">Sucesso</span>
-                <span class="stat-item__valor">{{ envio.totalSucesso }}</span>
-              </div>
-            </div>
-
-            <div class="stat-item stat-item--error">
-              <i class="material-icons stat-item__icone">cancel</i>
-              <div class="stat-item__content">
-                <span class="stat-item__label">Erros</span>
-                <span class="stat-item__valor">{{ envio.totalErro }}</span>
-              </div>
-            </div>
-
-            <div class="stat-item">
-              <i class="material-icons stat-item__icone">timer</i>
-              <div class="stat-item__content">
-                <span class="stat-item__label">Tempo</span>
-                <span class="stat-item__valor">{{ calcularTempoProcessamento(envio) }}</span>
-              </div>
-            </div>
           </div>
 
           <!-- Barra de progresso -->
