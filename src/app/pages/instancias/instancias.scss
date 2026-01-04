@@ -89,30 +89,38 @@
   }
 
   &--verde {
-    background: #ecfdf3;
+    background: #2db676;
     border-color: #bbf7d0;
 
     .resumo-card__icone {
-      background: #dcfce7;
-      color: #15803d;
+      background: #fff;
+      color: #2db676;
     }
 
     .resumo-card__numero {
-      color: #15803d;
+      color: #fff;
+    }
+
+    .resumo-card__titulo {
+      color: #fff;
     }
   }
 
   &--vermelho {
-    background: #fef2f2;
+    background: #e63946;
     border-color: #fecaca;
 
     .resumo-card__icone {
-      background: #fee2e2;
-      color: #b91c1c;
+      background: #fff;
+      color: #e63946;
     }
 
     .resumo-card__numero {
-      color: #b91c1c;
+      color: #fff;
+    }
+
+    .resumo-card__titulo {
+      color: #fff;
     }
   }
 }

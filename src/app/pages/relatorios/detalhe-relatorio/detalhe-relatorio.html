@@ -1,30 +1,43 @@
 <section class="detalhe-relatorio-page">
-  <div class="top-bar">
+  <div class="titulo-container">
+    <h1 class="titulo-arquivo">
+      {{ relatorio()?.nomeArquivo }}
+    </h1>
     <button class="btn-voltar" (click)="voltar()">
-      <i class="material-icons">arrow_back</i>
-      Voltar
+      <i class="material-icons">arrow_back</i> Voltar
     </button>
   </div>
-
-  <h1 class="titulo-arquivo">
-    {{ relatorio()?.nomeArquivo }}
-  </h1>
   <div class="sub-info">
     Enviado em {{ relatorio()?.dataEnvio | date:'dd \'de\' MMMM \'de\' y \'às\' HH:mm' }}
   </div>
 
   <div class="resumo-cards">
     <div class="resumo-card total">
-      <span>Total Enviado</span>
-      <strong>{{ totalEnviado() }}</strong>
+      <div class="resumo-card__icone">
+        <i class="material-icons">mail</i>
+      </div>
+      <div class="resumo-card__conteudo">
+        <span>Total Enviado</span>
+        <strong>{{ totalEnviado() }}</strong>
+      </div>
     </div>
     <div class="resumo-card sucesso">
-      <span>Sucesso</span>
-      <strong>{{ totalSucesso() }}</strong>
+      <div class="resumo-card__icone">
+        <i class="material-icons">check_circle</i>
+      </div>
+      <div class="resumo-card__conteudo">
+        <span>Sucesso</span>
+        <strong>{{ totalSucesso() }}</strong>
+      </div>
     </div>
     <div class="resumo-card erro">
-      <span>Erros</span>
-      <strong>{{ totalErro() }}</strong>
+      <div class="resumo-card__icone">
+        <i class="material-icons">cancel</i>
+      </div>
+      <div class="resumo-card__conteudo">
+        <span>Erros</span>
+        <strong>{{ totalErro() }}</strong>
+      </div>
     </div>
   </div>
 
@@ -39,6 +52,7 @@
           <tr>
             <th>Nome</th>
             <th>Telefone</th>
+            <th>Tipo</th>
             <th>Data/Hora</th>
           </tr>
         </thead>
@@ -46,6 +60,7 @@
           <tr *ngFor="let item of itensSucesso()">
             <td>{{ item.nome }}</td>
             <td>{{ item.telefone }}</td>
+            <td><span class="tipo-telefone">{{ item.tipoTelefone }}</span></td>
             <td class="data">{{ item.dataEnvio | date:'HH:mm:ss' }}</td>
           </tr>
         </tbody>
@@ -64,20 +79,48 @@
           <tr>
             <th>Nome</th>
             <th>Telefone</th>
+            <th>Tipo</th>
             <th>Data/Hora</th>
+            <th>Erro</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of itensErro()">
             <td>{{ item.nome }}</td>
             <td>{{ item.telefone }}</td>
+            <td><span class="tipo-telefone">{{ item.tipoTelefone }}</span></td>
             <td class="data">{{ item.dataEnvio | date:'HH:mm:ss' }}</td>
+            <td>
+              <div class="erro-info-container" *ngIf="item.mensagemErro">
+                <button 
+                  class="erro-info-btn"
+                  (click)="toggleErroPopover(item.mensagemErro!, $event)"
+                >
+                  <i class="material-icons">info</i>
+                </button>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
       <div class="lista-vazia" *ngIf="itensErro().length === 0">
         Nenhum erro registrado
       </div>
+    </div>
+  </div>
+
+  <!-- Modal de Erro -->
+  <div class="erro-modal-backdrop" *ngIf="erroAberto()" (click)="fecharPopover()"></div>
+  <div class="erro-modal" *ngIf="erroAberto()">
+    <div class="erro-modal__conteudo">
+      <button class="erro-modal__fechar" (click)="fecharPopover()">
+        <i class="material-icons">close</i>
+      </button>
+      <div class="erro-modal__icone">
+        <i class="material-icons">error_outline</i>
+      </div>
+      <h2 class="erro-modal__titulo">Detalhes do Erro</h2>
+      <p class="erro-modal__mensagem">{{ erroAberto() }}</p>
     </div>
   </div>
 </section>

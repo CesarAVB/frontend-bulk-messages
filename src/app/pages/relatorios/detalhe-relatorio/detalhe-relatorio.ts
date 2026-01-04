@@ -15,6 +15,7 @@ export class DetalheRelatorioComponent implements OnInit {
   relatorio = signal<RelatorioEnvio | null>(null);
   itens = signal<ItemEnvio[]>([]);
   carregando = signal(true);
+  erroAberto = signal<string | null>(null);
 
   // Computed signals para totais
   totalSucesso = computed(() => this.itensSucesso().length);
@@ -59,5 +60,18 @@ export class DetalheRelatorioComponent implements OnInit {
 
   itensErro(): ItemEnvio[] {
     return this.itens().filter(i => i.status === 'ERRO');
+  }
+
+  toggleErroPopover(mensagem: string, event: Event): void {
+    event.stopPropagation();
+    if (this.erroAberto() === mensagem) {
+      this.erroAberto.set(null);
+    } else {
+      this.erroAberto.set(mensagem);
+    }
+  }
+
+  fecharPopover(): void {
+    this.erroAberto.set(null);
   }
 }
