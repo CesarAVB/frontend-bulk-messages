@@ -15,31 +15,38 @@
   </header>
 
   <!-- LOADING -->
-  <div class="card loading-card" *ngIf="carregando()">
-    <div class="loading-state">
-      <i class="material-icons spin">sync</i>
-      <span>Carregando relatórios...</span>
+  @if (carregando()) {
+    <div class="card loading-card">
+      <div class="loading-state">
+        <i class="material-icons spin">sync</i>
+        <span>Carregando relatórios...</span>
+      </div>
     </div>
-  </div>
+  }
 
   <!-- ERRO -->
-  <div class="card error-state" *ngIf="erro()">
-    <i class="material-icons">error_outline</i>
-    <span>{{ erro() }}</span>
-  </div>
+  @if (erro()) {
+    <div class="card error-state">
+      <i class="material-icons">error_outline</i>
+      <span>{{ erro() }}</span>
+    </div>
+  }
 
   <!-- LISTA VAZIA -->
-  <div class="card empty-state" *ngIf="!carregando() && !erro() && envios().length === 0">
-    <i class="material-icons">description</i>
-    <h2>Nenhum relatório disponível</h2>
-    <p>Os relatórios serão exibidos aqui após o envio de mensagens</p>
-  </div>
+  @if (!carregando() && !erro() && envios().length === 0) {
+    <div class="card empty-state">
+      <i class="material-icons">description</i>
+      <h2>Nenhum relatório disponível</h2>
+      <p>Os relatórios serão exibidos aqui após o envio de mensagens</p>
+    </div>
+  }
 
   <!-- TABELA DE RELATÓRIOS -->
-  <div class="card table-card" *ngIf="!carregando() && !erro() && envios().length > 0">
-    <div class="table-responsive">
+  @if (!carregando() && !erro() && envios().length > 0) {
+    <div class="card table-card">
+      <div class="table-responsive">
 
-      <table class="relatorios-table">
+        <table class="relatorios-table">
         <thead>
           <tr>
             <th>Arquivo</th>
@@ -53,11 +60,11 @@
         </thead>
 
         <tbody>
-          <tr 
-            *ngFor="let envio of envios()"
-            class="clickable-row"
-            (click)="irParaDetalhe(envio.id)"
-          >
+          @for (envio of envios(); track envio.id) {
+            <tr 
+              class="clickable-row"
+              (click)="irParaDetalhe(envio.id)"
+            >
             <td>{{ envio.nomeArquivo }}</td>
             <td>{{ envio.nomeModelo }}</td>
             <td>{{ envio.dataEnvio | date:'short' }}</td>
@@ -73,11 +80,13 @@
                 {{ envio.status }}
               </span>
             </td>
-          </tr>
+            </tr>
+          }
         </tbody>
       </table>
 
+      </div>
     </div>
-  </div>
+  }
 
 </section>
