@@ -37,7 +37,6 @@ export class DashboardComponent implements OnInit {
     this.instanciasService.listar().subscribe({
       next: (data) => this.instancias.set(data),
       error: (error) => {
-        console.error('Erro ao carregar instâncias', error);
         this.instancias.set([]);
       }
     });
@@ -46,7 +45,6 @@ export class DashboardComponent implements OnInit {
     this.relatoriosService.listarRelatorios().subscribe({
       next: (data) => this.relatorios.set(data),
       error: (error) => {
-        console.error('Erro ao carregar relatórios', error);
         this.relatorios.set([]);
       }
     });

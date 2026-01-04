@@ -87,7 +87,6 @@ export class ImportarContatosComponent {
   proximoPasso(): void {
     // O botão "Próximo" deve ser habilitado apenas se houver um arquivo válido E contatos carregados
     if (this.arquivoUploadService.hasArquivo() && this.contatos$().length > 0) {
-      console.log('Arquivo e contatos prontos para processamento. Navegando...');
       this.router.navigate(['/enviar-mensagens']);
     } else {
       alert('Por favor, selecione um arquivo válido com contatos antes de prosseguir.');

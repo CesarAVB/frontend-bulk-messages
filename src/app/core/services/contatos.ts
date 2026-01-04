@@ -26,7 +26,6 @@ export class ContatosService {
   uploadArquivoXls(arquivo: File) {
     // Validação inicial do arquivo
     if (!arquivo || !(arquivo instanceof File) || arquivo.size === 0) {
-      console.warn('Arquivo inválido ou vazio recebido para upload de contatos.');
       this.contatos.set([]); // Limpa os contatos se o arquivo for inválido
       return;
     }
@@ -39,7 +38,6 @@ export class ContatosService {
         const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
 
         if (!wb.SheetNames.length) {
-          console.warn('Arquivo XLSX vazio ou sem sheets válidos.');
           this.contatos.set([]);
           return;
         }
@@ -63,16 +61,14 @@ export class ContatosService {
           }))
           .filter((c: Contato) => c.nome.trim() && c.telefonePrimario.trim()); // Filtra contatos válidos (nome e telefone primário obrigatórios)
 
-        console.log(`Contatos carregados: ${loadedContatos.length} válidos de ${data.length} linhas totais.`);
+
         this.contatos.set(loadedContatos);
       } catch (error) {
-        console.error('Erro ao processar o arquivo XLSX:', error);
         this.contatos.set([]); // Limpa em caso de erro
       }
     };
 
     reader.onerror = (error) => {
-      console.error('Erro ao ler o arquivo:', error);
       this.contatos.set([]); // Limpa em caso de erro
     };
 

@@ -32,18 +32,17 @@ export class DetalheRelatorioComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
 
     if (!id) {
-      console.error("ID do relatório não encontrado.");
       return;
     }
 
     this.relatoriosService.obterRelatorioPorId(id).subscribe({
       next: (detalhe) => this.relatorio.set(detalhe),
-      error: (error) => console.error("Erro ao buscar relatório:", error)
+      error: (error) => {}
     });
 
     this.relatoriosService.itensDoEnvio(id).subscribe({
       next: (lista) => this.itens.set(lista),
-      error: (error) => console.error("Erro ao buscar itens:", error),
+      error: (error) => {},
       complete: () => this.carregando.set(false)
     });
   }

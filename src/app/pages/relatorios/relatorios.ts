@@ -41,12 +41,10 @@ export class RelatoriosComponent implements OnInit {
           } else if (lista === null || lista === undefined) {
             this.envios.set([]);
           } else {
-            console.warn('Formato inesperado de relatórios:', lista);
             this.envios.set([]);
           }
         },
         error: (err) => {
-          console.error('Erro ao carregar relatórios:', err);
           this.erro.set('Não foi possível carregar os relatórios.');
           this.envios.set([]);
         },

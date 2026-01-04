@@ -24,12 +24,8 @@ export class InstanciasService {
   listar() {
     return this.http.get<any>(this.baseUrl).pipe(
       map((resp) => {
-        console.log('RESP BRUTO DO BACKEND >>>', resp);
-
         // Garantir que a resposta é um array
         const lista: any[] = Array.isArray(resp) ? resp : [];
-
-        console.log('LISTA COMO ARRAY >>> length =', lista.length);
 
         // Mapear os dados para a interface InstanciaWhatsapp
         const convertidas: InstanciaWhatsapp[] = lista.map((i) => {
@@ -53,24 +49,12 @@ export class InstanciasService {
             data_criacao: i.data_criacao,
             api_origem: i.api_origem,
           };
-          console.log(`Instância ${i.instancia_nome}:`, { 
-            original: i.status_online, 
-            tipo: typeof i.status_online, 
-            convertido: statusOnline 
-          });
           return instancia;
         });
-
-        console.log(
-          'INSTANCIAS CONVERTIDAS >>> length =',
-          convertidas.length,
-          convertidas
-        );
 
         return convertidas;
       }),
       catchError((err) => {
-        console.error('ERRO AO LISTAR INSTANCIAS', err);
         return of<InstanciaWhatsapp[]>([]);
       })
     );

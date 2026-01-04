@@ -29,11 +29,9 @@ export class ArquivoUploadService {
         fileType: file.type
       };
       this._arquivoAtual.set(arquivoImportado);
-      console.log('Arquivo definido no serviço:', arquivoImportado.fileName);
     } else {
       // Se o arquivo não for válido, limpa o estado
       this.clearArquivo();
-      console.warn('Tentativa de definir um arquivo inválido ou vazio no serviço.');
     }
   }
 
@@ -43,7 +41,6 @@ export class ArquivoUploadService {
 
   clearArquivo(): void {
     this._arquivoAtual.set(null);
-    console.log('Arquivo limpo do serviço.');
   }
 
   hasArquivo(): boolean {

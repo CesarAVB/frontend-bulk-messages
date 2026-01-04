@@ -53,7 +53,6 @@ export class ConfirmarEnvioComponent {
         },
         error: (error) => {
           this.enviando = false;
-          console.error('Erro ao enviar mensagens:', error);
           alert('Erro ao enviar mensagens. Tente novamente.');
         }
       });

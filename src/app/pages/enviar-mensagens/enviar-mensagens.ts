@@ -63,10 +63,8 @@ export class EnviarMensagensComponent implements OnInit {
     this.mensagensService.listarModelos().subscribe({
       next: (modelos) => {
         this.modelosDisponiveis.set(modelos);
-        console.log('Modelos carregados com sucesso:', modelos);
       },
       error: (error) => {
-        console.error('Erro ao carregar modelos:', error);
       }
     });
   }
@@ -81,7 +79,6 @@ export class EnviarMensagensComponent implements OnInit {
     const modelo = this.modeloSelecionado();
 
     if (!arquivoInfo || !modelo || contatos.length === 0) {
-      console.error('Dados incompletos para o envio. Verifique o arquivo, modelo e contatos.');
       return;
     }
 
