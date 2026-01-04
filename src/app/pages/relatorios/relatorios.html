@@ -2,8 +2,16 @@
 
   <!-- HEADER -->
   <header class="page__header">
-    <h1>Relatórios de Envio</h1>
-    <p>Acompanhe o status, quantidade de contatos e o desempenho de cada envio.</p>
+    <div class="titulo-container">
+      <div>
+        <h1>Relatórios de Envio</h1>
+        <p>Acompanhe o status, quantidade de contatos e o desempenho de cada envio.</p>
+      </div>
+      <button class="btn-atualizar" (click)="carregarRelatorios()" [disabled]="carregando()">
+        <i class="material-icons">refresh</i>
+        Atualizar
+      </button>
+    </div>
   </header>
 
   <!-- LOADING -->
