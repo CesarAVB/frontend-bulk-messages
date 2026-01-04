@@ -1,7 +1,7 @@
 // src/app/pages/enviar-mensagens/enviar-mensagens.ts
 import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ArquivoUploadService, ArquivoImportado } from '../../core/services/arquivo-upload.service';
 import { ContatosService, Contato } from '../../core/services/contatos';
@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './enviar-mensagens.html',
   styleUrls: ['./enviar-mensagens.scss']
 })
