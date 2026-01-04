@@ -61,32 +61,38 @@
   <!-- Cards de Ações Rápidas -->
   <div class="dashboard__actions-grid">
     <div class="action-card" routerLink="/importar-contatos">
-      <div class="action-card__icon">
-        <i class="material-icons">cloud_upload</i>
+      <div class="action-card__top">
+        <div class="action-card__icon">
+          <i class="material-icons">cloud_upload</i>
+        </div>
+        <div class="action-card__content">
+          <h3>Importar Contatos</h3>
+          <p>
+            Faça upload de um arquivo XLS com seus contatos para iniciar o envio
+            de mensagens
+          </p>
+        </div>
       </div>
-      <div class="action-card__content">
-        <h3>Importar Contatos</h3>
-        <p>
-          Faça upload de um arquivo XLS com seus contatos para iniciar o envio
-          de mensagens
-        </p>
-        <button class="btn-primary">
-          Importar Arquivo <i class="material-icons">arrow_forward</i>
-        </button>
-      </div>
+      <button class="btn-primary">
+        Importar Arquivo
+        <i class="material-icons">arrow_forward</i>
+      </button>
     </div>
 
     <div class="action-card" routerLink="/enviar-mensagens">
-      <div class="action-card__icon">
-        <i class="material-icons">chat</i>
+      <div class="action-card__top">
+        <div class="action-card__icon">
+          <i class="material-icons">chat</i>
+        </div>
+        <div class="action-card__content">
+          <h3>Enviar Mensagens</h3>
+          <p>{{ contatosCount() }} contatos prontos para receber mensagens</p>
+        </div>
       </div>
-      <div class="action-card__content">
-        <h3>Enviar Mensagens</h3>
-        <p>{{ contatosCount() }} contatos prontos para receber mensagens</p>
-        <button class="btn-primary">
-          Configurar Envio <i class="material-icons">arrow_forward</i>
-        </button>
-      </div>
+      <button class="btn-primary">
+        Configurar Envio
+        <i class="material-icons">arrow_forward</i>
+      </button>
     </div>
   </div>
 

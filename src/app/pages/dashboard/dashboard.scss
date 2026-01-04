@@ -152,7 +152,7 @@
 
   &__actions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); // Dois cards maiores
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     margin-bottom: 32px;
   }
@@ -160,12 +160,12 @@
   .action-card {
     background: white;
     border-radius: 16px;
-    padding: 24px;
+    padding: 20px;
     box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
     border: 1px solid #e2e8f0;
     display: flex;
-    gap: 20px;
-    align-items: flex-start; // Alinha o ícone e o conteúdo no topo
+    flex-direction: column;
+    gap: 16px;
     cursor: pointer;
     transition: all 0.2s ease;
 
@@ -173,6 +173,13 @@
       border-color: #2563eb;
       box-shadow: 0 6px 20px rgba(37, 99, 235, 0.1);
       transform: translateY(-2px);
+    }
+
+    &__top {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      flex: 1;
     }
 
     &__icon {
@@ -183,45 +190,50 @@
       align-items: center;
       justify-content: center;
       font-size: 24px;
-      background: #e0f2fe; // Azul claro
-      color: #0369a1; // Azul escuro
-      flex-shrink: 0; // Impede que o ícone encolha
+      background: #e0f2fe;
+      color: #0369a1;
+      flex-shrink: 0;
     }
 
     &__content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
       h3 {
         font-size: 18px;
         font-weight: 600;
         color: #1e293b;
-        margin: 0 0 8px 0;
+        margin: 0 0 6px 0;
       }
 
       p {
         font-size: 14px;
         color: #64748b;
-        margin: 0 0 16px 0;
+        margin: 0;
+      }
+    }
+
+    .btn-primary {
+      background: #0950C3;
+      color: #fff;
+      border-radius: 8px;
+      padding: 8px 18px;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease;
+      align-self: flex-start;
+
+      &:hover {
+        background: #1d4ed8;
       }
 
-      .btn-primary {
-        background: #0950C3;
-        color: #fff;
-        border-radius: 8px;
-        padding: 8px 18px;
-        border: none;
-        font-size: 14px;
-        cursor: pointer;
-        display: inline-flex; // Para alinhar ícone e texto
-        align-items: center;
-        gap: 8px;
-        transition: background 0.2s ease;
-
-        &:hover {
-          background: #1d4ed8;
-        }
-
-        i {
-          font-size: 18px;
-        }
+      i {
+        font-size: 18px;
       }
     }
   }
