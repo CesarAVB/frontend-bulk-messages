@@ -48,7 +48,7 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}                 # Porta SSH (22 normalmente)
 
           # Fonte: o conteúdo da pasta browser do build Angular
-          source: dist/whatsapp-sender/browser/            # Pega todos os arquivos dentro de browser
+          source: "dist/whatsapp-sender/browser/*"         # Pega todos os arquivos dentro de browser
           
           # Destino: pasta do volume que o Nginx lê
           target: /var/www/html/projetos_web/message/     
