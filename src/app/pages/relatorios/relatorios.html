@@ -110,6 +110,7 @@
             <div class="progresso-barra">
               <div 
                 class="progresso-barra__preenchimento" 
+                [class]="obterClasseBarraProgresso(calcularTaxaSucesso(envio))"
                 [style.width.%]="calcularTaxaSucesso(envio)"
               ></div>
             </div>

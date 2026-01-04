@@ -303,9 +303,23 @@
 
   &__preenchimento {
     height: 100%;
-    background: linear-gradient(90deg, #f97316, #fb923c);
     border-radius: 4px;
-    transition: width 0.3s ease;
+    transition: width 0.3s ease, background 0.3s ease;
+
+    // Cor verde para alta taxa de sucesso (>= 80%)
+    &--success {
+      background: linear-gradient(90deg, #10b981, #34d399);
+    }
+
+    // Cor laranja/amarela para taxa média (50-79%)
+    &--warning {
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
+    }
+
+    // Cor vermelha para taxa baixa (< 50%)
+    &--error {
+      background: linear-gradient(90deg, #ef4444, #f87171);
+    }
   }
 }
 

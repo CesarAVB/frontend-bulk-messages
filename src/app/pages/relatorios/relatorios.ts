@@ -120,4 +120,15 @@ export class RelatoriosComponent implements OnInit {
     };
     return statusMap[status] || status;
   }
+
+  // Retorna a classe CSS para a cor da barra de progresso baseada no percentual
+  obterClasseBarraProgresso(percentual: number): string {
+    if (percentual >= 80) {
+      return 'progresso-barra__preenchimento--success';
+    } else if (percentual >= 50) {
+      return 'progresso-barra__preenchimento--warning';
+    } else {
+      return 'progresso-barra__preenchimento--error';
+    }
+  }
 }
