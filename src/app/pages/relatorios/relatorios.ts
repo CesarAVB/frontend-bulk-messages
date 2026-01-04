@@ -31,25 +31,28 @@ export class RelatoriosComponent implements OnInit {
     this.carregando.set(true);
     this.erro.set(null);
 
-    this.relatoriosService.listarRelatorios().subscribe({
-      next: (lista) => {
-        // Garante que lista seja um array válido
-        if (Array.isArray(lista)) {
-          this.envios.set(lista);
-        } else if (lista === null || lista === undefined) {
+    // Delay de 2 segundos antes de carregar
+    setTimeout(() => {
+      this.relatoriosService.listarRelatorios().subscribe({
+        next: (lista) => {
+          // Garante que lista seja um array válido
+          if (Array.isArray(lista)) {
+            this.envios.set(lista);
+          } else if (lista === null || lista === undefined) {
+            this.envios.set([]);
+          } else {
+            console.warn('Formato inesperado de relatórios:', lista);
+            this.envios.set([]);
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao carregar relatórios:', err);
+          this.erro.set('Não foi possível carregar os relatórios.');
           this.envios.set([]);
-        } else {
-          console.warn('Formato inesperado de relatórios:', lista);
-          this.envios.set([]);
-        }
-      },
-      error: (err) => {
-        console.error('Erro ao carregar relatórios:', err);
-        this.erro.set('Não foi possível carregar os relatórios.');
-        this.envios.set([]);
-      },
-      complete: () => this.carregando.set(false)
-    });
+        },
+        complete: () => this.carregando.set(false)
+      });
+    }, 2000);
   }
 
   // Método usado no HTML

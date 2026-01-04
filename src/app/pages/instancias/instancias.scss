@@ -31,18 +31,36 @@
   background: #0950C3;
   color: #fff;
   border-radius: 8px;
-  padding: 8px 18px;
+  padding: 10px 16px;
   border: none;
   font-size: 14px;
   cursor: pointer;
   font-weight: 500;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 2px 6px rgba(9, 80, 195, 0.3);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
 
-  &:hover {
+  i {
+    font-size: 18px;
+  }
+
+  &:hover:not(:disabled) {
     background: #1d4ed8;
+    box-shadow: 0 4px 8px rgba(9, 80, 195, 0.4);
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    background: #1e40af;
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
 
@@ -157,6 +175,43 @@
       box-shadow: 0 12px 24px rgba(230, 57, 70, 0.5);
     }
   }
+}
+
+/* Loading card */
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  border: 1px solid #e2e8f0;
+}
+
+.loading-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #64748b;
+  font-size: 16px;
+
+  .spin {
+    animation: spin 1s linear infinite;
+  }
+
+  i {
+    font-size: 28px;
+    color: #0950c3;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* Grid de instâncias (cards grandes) */

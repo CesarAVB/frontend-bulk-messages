@@ -31,24 +31,27 @@ export class ConfirmarEnvioComponent {
   confirmar() {
     this.enviando = true;
     
-    const payload = {
-      idModeloMensagem: this.modeloSelecionado?.id,
-      nomeArquivo: this.arquivo?.fileName || '',
-      nomeModeloMensagem: this.modeloSelecionado?.titulo || this.modeloSelecionado?.nome || '',
-      conteudoMensagem: this.modeloSelecionado?.conteudo || '',
-      contatos: this.contatos
-    };
+    // Delay de 2 segundos para demonstrar processamento
+    setTimeout(() => {
+      const payload = {
+        idModeloMensagem: this.modeloSelecionado?.id,
+        nomeArquivo: this.arquivo?.fileName || '',
+        nomeModeloMensagem: this.modeloSelecionado?.titulo || this.modeloSelecionado?.nome || '',
+        conteudoMensagem: this.modeloSelecionado?.conteudo || '',
+        contatos: this.contatos
+      };
 
-    this.mensagensService.confirmarEnvio(payload).subscribe({
-      next: (response) => {
-        this.enviando = false;
-        this.router.navigate(['/envio-concluido']);
-      },
-      error: (error) => {
-        this.enviando = false;
-        console.error('Erro ao enviar mensagens:', error);
-        alert('Erro ao enviar mensagens. Tente novamente.');
-      }
-    });
+      this.mensagensService.confirmarEnvio(payload).subscribe({
+        next: (response) => {
+          this.enviando = false;
+          this.router.navigate(['/envio-concluido']);
+        },
+        error: (error) => {
+          this.enviando = false;
+          console.error('Erro ao enviar mensagens:', error);
+          alert('Erro ao enviar mensagens. Tente novamente.');
+        }
+      });
+    }, 2000);
   }
 }

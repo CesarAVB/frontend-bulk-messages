@@ -6,12 +6,23 @@
       <p>Gerencie suas conexões com a API do WhatsApp</p>
     </div>
 
-    <button type="button" class="btn-primary" (click)="carregar()">
+    <button type="button" class="btn-primary" (click)="carregar()" [disabled]="carregando()">
       Atualizar <i class="material-icons">refresh</i>
     </button>
   </header>
 
+  <!-- LOADING -->
+  @if (carregando()) {
+    <div class="card loading-card">
+      <div class="loading-state">
+        <i class="material-icons spin">sync</i>
+        <span>Carregando instâncias...</span>
+      </div>
+    </div>
+  }
+
   <!-- RESUMO -->
+  @if (!carregando()) {
   <section class="instancias-resumo">
     <div class="resumo-card resumo-card--verde">
       <div class="resumo-card__icone">
@@ -33,8 +44,10 @@
       </div>
     </div>
   </section>
+  }
 
   <!-- GRID DE INSTÂNCIAS -->
+  @if (!carregando()) {
   <section class="instancias-grid">
     <article
       class="instancia-card"
@@ -95,4 +108,5 @@
       </div>
     </article>
   </section>
+  }
 </section>

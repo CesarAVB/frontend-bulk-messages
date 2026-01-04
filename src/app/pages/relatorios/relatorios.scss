@@ -68,7 +68,12 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-.loading-card,
+.loading-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .error-state {
   display: flex;
   align-items: center;
@@ -111,9 +116,16 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  color: #64748b;
+  font-size: 16px;
 
   .spin {
     animation: spin 1s linear infinite;
+  }
+
+  i {
+    font-size: 28px;
+    color: #0950c3;
   }
 }
 
