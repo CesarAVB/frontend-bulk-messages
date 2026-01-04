@@ -34,10 +34,7 @@ jobs:
 
       # 5️ - Build do Angular
       - name: Build Angular app
-        run: |
-          # Ignora o budget do SCSS que quebra o CI
-          ng build --configuration production --stats-json
-          echo "Adjust budgets if necessary in angular.json"
+        run: npx ng build --configuration production
 
       # 6️ - Deploy para o volume do Nginx (container nginx_message)
       - name: Deploy to Nginx message via SCP
