@@ -17,7 +17,12 @@
     // ==========================================
     listarRelatorios(): Observable<RelatorioEnvio[]> {
       return this.http.get<any[]>(this.baseUrl).pipe(
-        map(lista => lista.map(item => this.mapRelatorio(item)))
+        map(lista => {
+          if (!Array.isArray(lista)) {
+            return [];
+          }
+          return lista.map(item => this.mapRelatorio(item));
+        })
       );
     }
 

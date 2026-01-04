@@ -14,9 +14,17 @@ export interface ConfiguracaoEnvio {
   quantidade: number;
 }
 
+export interface PayloadEnvio {
+  idModeloMensagem: string;
+  nomeArquivo: string;
+  nomeModeloMensagem: string;
+  conteudoMensagem: string;
+  contatos: any[];
+}
+
 @Injectable({ providedIn: 'root' })
 export class MensagensService {
-  private baseUrl = `${environment.apiUrl}/mensagens`;
+  private baseUrl = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) {}
 
@@ -28,7 +36,7 @@ export class MensagensService {
     return this.http.post(`${this.baseUrl}/configuracao`, config);
   }
 
-  confirmarEnvio(payload: { modeloId: string; quantidade: number }) {
-    return this.http.post(`${this.baseUrl}/enviar`, payload);
+  confirmarEnvio(payload: PayloadEnvio) {
+    return this.http.post(`${this.baseUrl}/envios`, payload);
   }
 }

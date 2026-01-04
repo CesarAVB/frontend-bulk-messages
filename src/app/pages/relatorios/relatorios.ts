@@ -33,7 +33,15 @@ export class RelatoriosComponent implements OnInit {
 
     this.relatoriosService.listarRelatorios().subscribe({
       next: (lista) => {
-        this.envios.set(lista);
+        // Garante que lista seja um array válido
+        if (Array.isArray(lista)) {
+          this.envios.set(lista);
+        } else if (lista === null || lista === undefined) {
+          this.envios.set([]);
+        } else {
+          console.warn('Formato inesperado de relatórios:', lista);
+          this.envios.set([]);
+        }
       },
       error: (err) => {
         console.error('Erro ao carregar relatórios:', err);
@@ -58,7 +66,9 @@ export class RelatoriosComponent implements OnInit {
     }
   }
 
-  irParaDetalhe(id: string) {
-  this.router.navigate(['/relatorios', id]);
-}
+  irParaDetalhe(id: string): void {
+    if (id) {
+      this.router.navigate(['/relatorios', id]);
+    }
+  }
 }

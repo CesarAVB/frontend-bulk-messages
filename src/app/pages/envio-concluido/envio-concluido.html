@@ -1,0 +1,32 @@
+<section class="envio-concluido-page">
+  <div class="success-container">
+    <div class="success-icon">
+      <i class="material-icons">check_circle</i>
+    </div>
+    
+    <h1>Envio iniciado com sucesso!</h1>
+    
+    <div class="message-content">
+      <div class="message-block">
+        <p>As mensagens foram enviadas para a fila de processamento e serão executadas em segundo plano.</p>
+      </div>
+      
+      <div class="message-block">
+        <p>Para acompanhar o status do envio, verificar mensagens enviadas com sucesso ou possíveis erros, acesse a sessão de <strong>relatórios</strong>.</p>
+      </div>
+      
+      <div class="message-block">
+        <p>Você pode optar por realizar um novo envio ou ir agora para a página de relatórios.</p>
+      </div>
+    </div>
+    
+    <div class="actions">
+      <button type="button" class="btn-primary" (click)="verRelatorio()">
+        <i class="material-icons">assessment</i> Ver Relatório
+      </button>
+      <button type="button" class="btn-secondary" (click)="novoEnvio()">
+        <i class="material-icons">add</i> Novo Envio
+      </button>
+    </div>
+  </div>
+</section>

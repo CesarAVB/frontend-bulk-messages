@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RelatoriosService, RelatorioEnvio, ItemEnvio } from '../../../core/services/relatorios';
@@ -15,6 +15,11 @@ export class DetalheRelatorioComponent implements OnInit {
   relatorio = signal<RelatorioEnvio | null>(null);
   itens = signal<ItemEnvio[]>([]);
   carregando = signal(true);
+
+  // Computed signals para totais
+  totalSucesso = computed(() => this.itensSucesso().length);
+  totalErro = computed(() => this.itensErro().length);
+  totalEnviado = computed(() => this.itens().length);
 
   constructor(
     private route: ActivatedRoute,

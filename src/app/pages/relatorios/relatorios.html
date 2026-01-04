@@ -22,9 +22,9 @@
 
   <!-- LISTA VAZIA -->
   <div class="card empty-state" *ngIf="!carregando() && !erro() && envios().length === 0">
-    <i class="material-icons">inbox</i>
-    <span>Nenhum relatório de envio encontrado.</span>
-    <p>Assim que você realizar envios, eles aparecerão aqui.</p>
+    <i class="material-icons">description</i>
+    <h2>Nenhum relatório disponível</h2>
+    <p>Os relatórios serão exibidos aqui após o envio de mensagens</p>
   </div>
 
   <!-- TABELA DE RELATÓRIOS -->

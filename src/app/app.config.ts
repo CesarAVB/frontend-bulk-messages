@@ -12,6 +12,7 @@ import { EnviarMensagensComponent } from './pages/enviar-mensagens/enviar-mensag
 import { InstanciasComponent } from './pages/instancias/instancias';
 import { RelatoriosComponent } from './pages/relatorios/relatorios';
 import { DetalheRelatorioComponent } from './pages/relatorios/detalhe-relatorio/detalhe-relatorio';
+import { EnvioConcluıdoComponent } from './pages/envio-concluido/envio-concluido';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'importar-contatos', component: ImportarContatosComponent },
       { path: 'confirmar-envio', component: ConfirmarEnvioComponent },
+      { path: 'envio-concluido', component: EnvioConcluıdoComponent },
       { path: 'enviar-mensagens', component: EnviarMensagensComponent },
       { path: 'instancias', component: InstanciasComponent },
       { path: 'relatorios', component: RelatoriosComponent },

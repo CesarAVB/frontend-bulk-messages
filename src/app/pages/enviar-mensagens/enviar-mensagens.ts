@@ -86,41 +86,12 @@ export class EnviarMensagensComponent implements OnInit {
       return;
     }
 
-    this.carregandoEnvio.set(true);
-
-    const payload = {
-      nomeArquivo: arquivoInfo.fileName,
-      idModeloMensagem: modelo.id,
-      nomeModeloMensagem: modelo.titulo,
-      conteudoMensagem: modelo.conteudo,
-      contatos: contatos.map(c => ({
-        nome: c.nome,
-        telefonePrimario: c.telefonePrimario,
-        telefoneSecundario: c.telefoneSecundario,
-        telefoneTerciario: c.telefoneTerciario
-      }))
-    };
-
-    console.log('Payload para o backend:', payload);
-
-    this.relatoriosService.iniciarEnvio(
-      payload.idModeloMensagem,
-      payload.nomeArquivo,
-      payload.nomeModeloMensagem,
-      payload.conteudoMensagem,
-      payload.contatos
-    ).subscribe({
-      next: (response: any) => {
-        console.log('Envio iniciado com sucesso!', response);
-        this.arquivoUploadService.clearArquivo();
-        this.contatosService.contatos.set([]);
-        this.router.navigate(['/relatorios']);
-      },
-      error: (error: any) => {
-        console.error('Erro ao iniciar o envio:', error);
-      },
-      complete: () => {
-        this.carregandoEnvio.set(false);
+    // Encaminha para a página de confirmação de envio, levando os dados necessários
+    this.router.navigate(['/confirmar-envio'], {
+      state: {
+        modelo,
+        contatos,
+        arquivo: arquivoInfo
       }
     });
   }
