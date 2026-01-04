@@ -109,4 +109,15 @@ export class RelatoriosComponent implements OnInit {
 
     return Math.round((relatorio.totalSucesso / total) * 100);
   }
+
+  // Retorna o texto amigável do status
+  obterTextoStatus(status: string): string {
+    const statusMap: { [key: string]: string } = {
+      'PROCESSANDO': 'Processando',
+      'CONCLUIDO': 'Concluído',
+      'CONCLUIDO_COM_ERROS': 'Concluído com Erros',
+      'FALHA': 'Falha'
+    };
+    return statusMap[status] || status;
+  }
 }

@@ -55,6 +55,11 @@
                 <h3 class="relatorio-card__nome-arquivo">{{ envio.nomeArquivo }}</h3>
                 <p class="relatorio-card__modelo">Modelo: {{ envio.nomeModelo }}</p>
               </div>
+              @if (envio.status) {
+                <span class="status-badge" [class]="'status-badge--' + envio.status.toLowerCase()">
+                  {{ obterTextoStatus(envio.status) }}
+                </span>
+              }
             </div>
 
             <!-- Estatísticas à direita -->

@@ -313,9 +313,31 @@
 .status-badge {
   padding: 4px 12px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-left: 12px;
+
+  &--processando {
+    background: #dbe4ff;
+    color: #3949ab;
+  }
+
+  &--concluido {
+    background: #d1f4e0;
+    color: #16a34a;
+  }
+
+  &--concluido_com_erros {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  &--falha {
+    background: #fee;
+    color: #dc2626;
+  }
 }
 
 .status-success {
