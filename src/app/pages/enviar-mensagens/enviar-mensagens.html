@@ -5,7 +5,25 @@
     <p>Configure e inicie o envio de mensagens para seus contatos.</p>
   </header>
 
+  <!-- Mensagem de aviso quando não há arquivo carregado -->
+  @if (!arquivoUploadService.arquivoAtual()) {
+    <div class="card card--warning">
+      <div class="warning-content">
+        <div class="warning-icon">
+          <i class="material-icons">error_outline</i>
+        </div>
+        <h2 class="warning-title">Nenhum contato importado</h2>
+        <p class="warning-text">Você precisa importar um arquivo de contatos antes de enviar mensagens</p>
+        <a routerLink="/importar-contatos" class="btn-primary">
+          <i class="material-icons">upload</i>
+          Importar Contatos
+        </a>
+      </div>
+    </div>
+  }
+
   <!-- Seção 1: Informações do Arquivo e Contatos -->
+  @if (arquivoUploadService.arquivoAtual()) {
   <div class="card">
     <div class="wizard-step-header">
       <div class="wizard-step-header__number">1</div>
@@ -118,4 +136,5 @@
       }
     </button>
   </div>
+  }
 </section>

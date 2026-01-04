@@ -55,14 +55,6 @@ export class EnviarMensagensComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.arquivoUploadService.hasArquivo() || this.contatosService.contatos().length === 0) {
-      console.warn('Nenhum arquivo ou contatos encontrados. Redirecionando para importação.');
-      this.router.navigate(['/importar-contatos']);
-    } else {
-      console.log('Arquivo disponível para envio:', this.arquivoUploadService.arquivoAtual()?.fileName);
-      console.log('Contatos carregados:', this.contatosService.contatos().length);
-    }
-
     // Carregar os modelos do serviço
     this.carregarModelos();
   }
