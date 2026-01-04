@@ -38,4 +38,4 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           source: dist/whatsapp-sender/browser/*      # Conteúdo do Angular
           target: /var/www/html/projetos_web/message  # volume do host
-          strip_components: 1                         # remove a pasta dist do caminho
+          strip_components: 0                         # mantém os arquivos na raiz do target
