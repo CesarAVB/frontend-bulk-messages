@@ -13,6 +13,11 @@ export class ConfirmarEnvioComponent {
   arquivo: any;
   enviando = false;
 
+  get conteudoFormatado(): string {
+    if (!this.modeloSelecionado?.conteudo) return 'Nenhum modelo selecionado.';
+    return this.modeloSelecionado.conteudo.replace(/\\n/g, '\n');
+  }
+
   constructor(
     private router: Router,
     private mensagensService: MensagensService
