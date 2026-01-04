@@ -2,7 +2,7 @@
 
 # Angular specific
 environment.development.ts
-environment.ts
+#environment.ts
 
 # Compiled output
 /dist
