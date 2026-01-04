@@ -157,11 +157,17 @@ $white-weak: #e1e6f0;
 
   &__version {
     font-weight: 600;
+    text-align: center;
   }
 
   &__credit {
     margin-top: 4px;
     opacity: 0.8;
+  }
+
+  &__company {
+    margin-top: 2px;
+    text-align: center;
   }
 
   &__link {
