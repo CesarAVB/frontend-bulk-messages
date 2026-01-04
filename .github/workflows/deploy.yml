@@ -1,6 +1,6 @@
 name: Deploy Angular App to Nginx Message
 
-# Gatilho: roda quando houver push na branch principal
+# Gatilho: roda quando houver push na branch main
 on:
   push:
     branches:
@@ -8,51 +8,54 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest   # Ambiente Ubuntu no Actions
+    runs-on: ubuntu-latest   # Ambiente do GitHub Actions
 
     steps:
-      # 1️ - Baixar o código do repositório
+      # 1️ Baixar o código do repositório
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2️ - Configurar Node.js usando o .nvmrc (22.12.0 no seu projeto)
+      # 2️ Configurar Node.js usando o .nvmrc (22.12.0)
       - name: Setup Node.js from .nvmrc
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'  # lê Node 22.12.0 do arquivo .nvmrc
+          node-version-file: '.nvmrc'  # lê a versão do Node definida no projeto
 
-      # 3️ - Instalar dependências do Angular
+      # 3️ Instalar dependências do Angular
       - name: Install dependencies
-        run: npm ci   # npm ci é mais rápido e reproduzível no CI
+        run: npm ci   # npm ci garante build reproduzível no CI
 
-      # 4️ - Criar environment.ts se não existir (evita erro de build)
+      # 4️ Criar environment.ts se não existir
+      # Isso evita erro de build no CI quando environment.ts não está no repositório
       - name: Ensure environment.ts exists
         run: |
           if [ ! -f src/environments/environment.ts ]; then
             cp src/environments/environment.example.ts src/environments/environment.ts
           fi
 
-      # 5️ - Build do Angular
+      # 5️ Build do Angular
+      # npx usa a versão local da CLI (não precisa instalar global)
       - name: Build Angular app
         run: npx ng build --configuration production
 
-      # 6️ - Deploy para o volume do Nginx (container nginx_message)
+      # 6️ Deploy para o volume do Nginx (container nginx_message)
       - name: Deploy to Nginx message via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.SERVER_HOST }}                     # IP ou hostname do seu servidor
-          username: ${{ secrets.SERVER_USER }}                 # Usuário SSH
-          key: ${{ secrets.SSH_PRIVATE_KEY }}                  # Chave privada SSH
-          port: ${{ secrets.SERVER_PORT }}                     # Porta SSH (22 normalmente)
-          
-          # Source: conteúdo da pasta browser do build Angular
-          source: dist/whatsapp-sender/browser/*               # Tudo dentro de browser/
-          
-          # Target: volume do host onde o container Nginx lê os arquivos
-          target: /var/www/html/projetos_web/message
-          
-          strip_components: 1                                  # Remove a pasta 'browser' do caminho
+          host: ${{ secrets.SERVER_HOST }}                 # IP ou hostname do servidor
+          username: ${{ secrets.SERVER_USER }}             # Usuário SSH
+          key: ${{ secrets.SSH_PRIVATE_KEY }}              # Chave privada SSH
+          port: ${{ secrets.SERVER_PORT }}                 # Porta SSH (22 normalmente)
 
-      # 7️ - Mensagem de sucesso
+          # Fonte: o conteúdo da pasta browser do build Angular
+          source: dist/whatsapp-sender/browser/            # Pega todos os arquivos dentro de browser
+          
+          # Destino: pasta do volume que o Nginx lê
+          target: /var/www/html/projetos_web/message/     
+
+          # Mantém arquivos diretamente no target, sem criar pastas extras
+          strip_components: 0
+
+      # 7️ Mensagem de sucesso
       - name: Deployment complete
         run: echo "✅ Angular whatsapp-sender deployed successfully to nginx_message"
