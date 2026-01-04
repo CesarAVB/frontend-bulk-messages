@@ -90,7 +90,8 @@
           id="preview-conteudo"
           class="modelo-preview__textarea"
           readonly
-        >{{ modeloSelecionado()?.conteudo }}</textarea>
+          [value]="conteudoFormatado()"
+        ></textarea>
       </div>
     }
   </div>

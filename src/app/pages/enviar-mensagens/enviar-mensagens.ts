@@ -28,6 +28,13 @@ export class EnviarMensagensComponent implements OnInit {
     return id ? this.modelosDisponiveis().find(m => m.id === id) : null;
   });
 
+  // Computed para obter o conteúdo com quebras de linha processadas
+  conteudoFormatado = computed(() => {
+    const modelo = this.modeloSelecionado();
+    if (!modelo) return '';
+    return modelo.conteudo.replace(/\\n/g, '\n');
+  });
+
   // Computed para verificar se o botão de envio deve estar habilitado
   isEnvioHabilitado = computed(() => {
     return (
