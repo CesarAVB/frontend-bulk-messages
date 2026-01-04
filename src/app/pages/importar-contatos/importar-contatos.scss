@@ -55,17 +55,25 @@
   }
 
   &__icon {
-    font-size: 32px;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
+    
+    i {
+      font-size: 64px;
+      color: #94a3b8;
+    }
   }
 
   &__title {
     font-weight: 600;
+    font-size: 18px;
+    color: #1e293b;
+    margin: 0 0 8px 0;
   }
 
   &__subtitle {
-    margin-top: 4px;
-    color: #6b7280;
+    margin: 0;
+    color: #94a3b8;
+    font-size: 14px;
   }
 
   &__tags {
