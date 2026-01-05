@@ -113,6 +113,7 @@ $white-weak: #e1e6f0;
       text-decoration: none;
       font-size: 13px;
       transition: background 0.15s ease, color 0.15s ease;
+      cursor: pointer;
 
       &.active {
         background: #3C83F6;
@@ -126,6 +127,20 @@ $white-weak: #e1e6f0;
       &:hover {
         background: rgba(255, 255, 255, 0.06);
       }
+    }
+  }
+
+  &__separator-item {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 8px 0;
+  }
+
+  &__logout {
+    color: #f87171 !important;
+
+    &:hover {
+      background: rgba(248, 113, 113, 0.1) !important;
     }
   }
 

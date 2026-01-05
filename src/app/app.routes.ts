@@ -8,9 +8,14 @@ import { ImportarContatosComponent } from './pages/importar-contatos/importar-co
 import { InstanciasComponent } from './pages/instancias/instancias';
 import { RelatoriosComponent } from './pages/relatorios/relatorios';
 import { DetalheRelatorioComponent } from './pages/relatorios/detalhe-relatorio/detalhe-relatorio';
+import { LoginComponent } from './pages/login/login';
 import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   {
     path: '',
     component: MainLayoutComponent,
@@ -26,5 +31,9 @@ export const routes: Routes = [
       { path: 'relatorios', component: RelatoriosComponent },
       { path: 'relatorios/:id', component: DetalheRelatorioComponent }
     ]
+  },
+  {
+    path: '**',
+    redirectTo: ''
   }
 ];

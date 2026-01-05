@@ -62,6 +62,17 @@
         }
       </a>
     </li>
+
+    <li class="sidebar__separator-item"></li>
+
+    <li>
+      <a (click)="logout()" class="sidebar__logout">
+        <span class="sidebar__icon">🚪</span>
+        @if (!colapsada()) {
+          <span class="sidebar__label">Sair</span>
+        }
+      </a>
+    </li>
   </ul>
 
   <div class="sidebar__status">
