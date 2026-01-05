@@ -124,9 +124,9 @@
     <!-- Inputs para variáveis do modelo -->
     @if (variaveisModelo().length > 0) {
       <div class="modelo-variaveis">
-        <p class="modelo-variaveis__explicacao">
-          Preencha o campo abaixo para personalizar a mensagem.
-        </p>
+        <div class="modelo-variaveis__explicacao destaque-instrucao">
+          <strong>Instrução:</strong> Preencha o campo abaixo com o <b>mês da fatura</b> para substituir o texto entre chaves na mensagem.
+        </div>
         @for (variavel of variaveisModelo(); track variavel) {
           <div class="modelo-variavel-input">
             <label for="var-{{variavel}}">{{ variavel }}</label>
