@@ -274,6 +274,15 @@
       color: #ef4444;
     }
   }
+
+  &--count {
+    .stat-item__icone {
+      color: #2563eb;
+    }
+    .stat-item__valor {
+      color: #2563eb;
+    }
+  }
 }
 
 /* Barra de progresso */

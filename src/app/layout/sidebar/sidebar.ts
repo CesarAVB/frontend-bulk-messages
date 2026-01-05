@@ -11,7 +11,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class SidebarComponent {
   colapsada = signal(false);
-  appVersion = '1.0.0';
+  appVersion = '1.1.0';
 
   constructor(private router: Router) {}
 
