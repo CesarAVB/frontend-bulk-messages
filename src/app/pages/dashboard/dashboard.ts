@@ -79,10 +79,13 @@ export class DashboardComponent implements OnInit {
   );
 
   taxaSucesso = computed(() => {
-    const total = this.totalEnvios();
-    const sucesso = this.enviosComSucesso();
-    if (total === 0) return 0;
-    return Math.round((sucesso / total) * 100);
+    const rel = this.relatorios();
+    if (!rel || rel.length === 0) return 0;
+    // Calcular pelo total de mensagens enviadas (sucesso + erro)
+    const totalMensagens = rel.reduce((s, r) => s + (r.totalSucesso || 0) + (r.totalErro || 0), 0);
+    const sucesso = rel.reduce((s, r) => s + (r.totalSucesso || 0), 0);
+    if (totalMensagens === 0) return 0;
+    return Math.round((sucesso / totalMensagens) * 100);
   });
 
   // -------- ATIVIDADE RECENTE --------
