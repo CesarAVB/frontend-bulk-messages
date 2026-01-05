@@ -382,3 +382,38 @@
   background: #dbe4ff;
   color: #3949ab;
 }
+
+@media (max-width: 900px) {
+  .relatorio-card__linha-principal {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .relatorio-card__stats {
+    justify-content: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .relatorio-card {
+    padding: 10px 6px;
+  }
+  .relatorio-card__linha-principal {
+    gap: 8px;
+  }
+  .relatorio-card__stats {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .relatorio-card__info-principal {
+    gap: 6px;
+  }
+  .relatorio-card__titulos h3 {
+    font-size: 13px;
+  }
+  .relatorio-card__modelo {
+    font-size: 11px;
+  }
+}

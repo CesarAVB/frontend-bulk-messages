@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -9,11 +9,28 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './sidebar.html',
   styleUrls: ['./sidebar.scss']
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   colapsada = signal(false);
   appVersion = '1.1.0';
 
   constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.checkWindowSize();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.checkWindowSize();
+  }
+
+  checkWindowSize() {
+    if (window.innerWidth <= 800) {
+      this.colapsada.set(true);
+    } else {
+      this.colapsada.set(false);
+    }
+  }
 
   toggle() {
     this.colapsada.update(v => !v);
