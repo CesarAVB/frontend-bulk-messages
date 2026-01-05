@@ -28,11 +28,36 @@ export class EnviarMensagensComponent implements OnInit {
     return id ? this.modelosDisponiveis().find(m => m.id === id) : null;
   });
 
+  // Detecta variáveis do modelo selecionado
+  variaveisModelo = computed(() => {
+    const modelo = this.modeloSelecionado();
+    if (!modelo) return [];
+    // Regex para encontrar {{VARIAVEL}}
+    const matches = [...modelo.conteudo.matchAll(/{{(.*?)}}/g)];
+    return matches.map(m => m[1]);
+  });
+
+  valoresVariaveis = signal<Record<string, string>>({});
+
+  setValorVariavel(nome: string, valor: string) {
+    this.valoresVariaveis.update(obj => ({ ...obj, [nome]: valor }));
+  }
+
   // Computed para obter o conteúdo com quebras de linha processadas
-  conteudoFormatado = computed(() => {
+  conteudoFormatadoHtml = computed(() => {
     const modelo = this.modeloSelecionado();
     if (!modelo) return '';
-    return modelo.conteudo.replace(/\\n/g, '\n');
+    let conteudo = modelo.conteudo.replace(/\n/g, '<br>');
+    for (const nome of this.variaveisModelo()) {
+      const valor = this.valoresVariaveis()[nome];
+      if (!valor) {
+        // Exibe o nome da variável em negrito
+        conteudo = conteudo.replaceAll(`{{${nome}}}`, `<b>{{${nome}}}</b>`);
+      } else {
+        conteudo = conteudo.replaceAll(`{{${nome}}}`, valor);
+      }
+    }
+    return conteudo;
   });
 
   // Computed para verificar se o botão de envio deve estar habilitado

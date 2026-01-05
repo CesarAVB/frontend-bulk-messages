@@ -121,16 +121,26 @@
       }
     </div>
 
+    <!-- Inputs para variáveis do modelo -->
+    @if (variaveisModelo().length > 0) {
+      <div class="modelo-variaveis">
+        <p class="modelo-variaveis__explicacao">
+          Preencha o campo abaixo para personalizar a mensagem.
+        </p>
+        @for (variavel of variaveisModelo(); track variavel) {
+          <div class="modelo-variavel-input">
+            <label for="var-{{variavel}}">{{ variavel }}</label>
+            <input id="var-{{variavel}}" type="text" [ngModel]="valoresVariaveis()[variavel]" (ngModelChange)="setValorVariavel(variavel, $event)" placeholder="Digite o valor para {{variavel}}" />
+          </div>
+        }
+      </div>
+    }
+
     <!-- Preview do conteúdo da mensagem -->
     @if (modeloSelecionado()) {
       <div class="modelo-preview">
         <label for="preview-conteudo">Prévia da Mensagem</label>
-        <textarea
-          id="preview-conteudo"
-          class="modelo-preview__textarea"
-          readonly
-          [value]="conteudoFormatado()"
-        ></textarea>
+        <div id="preview-conteudo" class="modelo-preview__textarea modelo-preview__html" [innerHTML]="conteudoFormatadoHtml()"></div>
       </div>
     }
   </div>
