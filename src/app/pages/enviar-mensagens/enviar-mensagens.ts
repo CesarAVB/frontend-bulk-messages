@@ -47,11 +47,11 @@ export class EnviarMensagensComponent implements OnInit {
   conteudoFormatadoHtml = computed(() => {
     const modelo = this.modeloSelecionado();
     if (!modelo) return '';
-    let conteudo = modelo.conteudo.replace(/\n/g, '<br>');
+    let conteudo = modelo.conteudo
+      .replace(/\\r\\n|\\n|\r\n|\n/g, '<br>');
     for (const nome of this.variaveisModelo()) {
       const valor = this.valoresVariaveis()[nome];
       if (!valor) {
-        // Exibe o nome da variável em negrito
         conteudo = conteudo.replaceAll(`{{${nome}}}`, `<b>{{${nome}}}</b>`);
       } else {
         conteudo = conteudo.replaceAll(`{{${nome}}}`, valor);
@@ -62,12 +62,22 @@ export class EnviarMensagensComponent implements OnInit {
 
   // Computed para verificar se o botão de envio deve estar habilitado
   isEnvioHabilitado = computed(() => {
-    return (
-      this.arquivoUploadService.hasArquivo() &&
-      this.contatosService.contatos().length > 0 &&
-      this.modeloSelecionado() !== null &&
-      !this.carregandoEnvio()
-    );
+    if (!this.arquivoUploadService.hasArquivo() ||
+        this.contatosService.contatos().length === 0 ||
+        this.modeloSelecionado() === null ||
+        this.carregandoEnvio()) {
+      return false;
+    }
+    // Se houver variáveis, todas devem estar preenchidas
+    const variaveis = this.variaveisModelo();
+    if (variaveis.length > 0) {
+      for (const nome of variaveis) {
+        if (!this.valoresVariaveis()[nome] || this.valoresVariaveis()[nome].trim() === '') {
+          return false;
+        }
+      }
+    }
+    return true;
   });
 
   constructor(
@@ -108,11 +118,17 @@ export class EnviarMensagensComponent implements OnInit {
     }
 
     // Encaminha para a página de confirmação de envio, levando os dados necessários
+    // Monta objeto de variáveis no formato variavel.(nome da variavel em minúscula)
+    const variaveisPayload: Record<string, string> = {};
+    for (const nome of this.variaveisModelo()) {
+      variaveisPayload[`variavel.${nome.toLowerCase()}`] = this.valoresVariaveis()[nome] || '';
+    }
     this.router.navigate(['/confirmar-envio'], {
       state: {
         modelo,
         contatos,
-        arquivo: arquivoInfo
+        arquivo: arquivoInfo,
+        variaveis: variaveisPayload
       }
     });
   }

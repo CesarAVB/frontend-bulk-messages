@@ -1,3 +1,7 @@
+/* Exibe quebras de linha na prévia da mensagem */
+.modelo-preview__html {
+  white-space: pre-line;
+}
 /* src/app/pages/enviar-mensagens/enviar-mensagens.scss */
 
 :host {

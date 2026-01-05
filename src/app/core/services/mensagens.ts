@@ -20,6 +20,7 @@ export interface PayloadEnvio {
   nomeModeloMensagem: string;
   conteudoMensagem: string;
   contatos: any[];
+  [key: string]: any; // permite variáveis dinâmicas
 }
 
 @Injectable({ providedIn: 'root' })
