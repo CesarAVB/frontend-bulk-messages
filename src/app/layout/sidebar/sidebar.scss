@@ -137,6 +137,8 @@ $white-weak: #e1e6f0;
   }
 
   &__logout {
+    display: flex;
+    align-items: center;
     color: #f87171 !important;
 
     &:hover {
@@ -204,5 +206,10 @@ $white-weak: #e1e6f0;
       opacity: 0.8;
       text-decoration: underline;
     }
+  }
+
+  &__logout .sidebar__icon {
+    color: #fff;
+    filter: none;
   }
 }
