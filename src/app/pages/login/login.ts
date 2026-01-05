@@ -18,7 +18,7 @@ export class LoginComponent {
   errorMessage: string = '';
 
   // Credenciais válidas
-  private readonly VALID_EMAIL = 'cobranca@lognet.com.br';
+  private readonly VALID_EMAIL = 'cobranca@lognetrj.com.br';
   private readonly VALID_PASSWORD = 'lognet2019';
 
   constructor(private router: Router) {}
