@@ -20,6 +20,7 @@ export class RelatoriosComponent implements OnInit {
 
   pageSize = 5;
   currentPage = 1;
+  Math = Math;
 
   constructor(
     private relatoriosService: RelatoriosService, 

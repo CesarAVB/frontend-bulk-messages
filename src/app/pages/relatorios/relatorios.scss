@@ -383,6 +383,63 @@
   color: #3949ab;
 }
 
+.tabela-paginacao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 4px 0;
+  font-size: 14px;
+  color: #6b7280;
+
+  &__info {
+    flex: 1;
+    font-weight: 500;
+    color: #374151;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    cursor: pointer;
+    color: #6b7280;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background: #f3f4f6;
+      border-color: #d1d5db;
+      color: #374151;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    i {
+      font-size: 18px;
+    }
+  }
+
+  &__info-pagina {
+    font-weight: 500;
+    color: #374151;
+    min-width: 100px;
+    text-align: center;
+  }
+}
+
 @media (max-width: 900px) {
   .relatorio-card__linha-principal {
     flex-direction: column;

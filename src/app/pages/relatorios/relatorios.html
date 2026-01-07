@@ -125,22 +125,38 @@
         </div>
       }
     </div>
-
-    @if (envios().length > pageSize) {
-      <div class="paginacao">
-        <button class="paginacao__botao" (click)="prevPage()" [disabled]="currentPage === 1">
-          <i class="material-icons">chevron_left</i>
-          Anterior
-        </button>
-
-        <span class="paginacao__info">
-          Página {{ currentPage }} de {{ totalPages }}
-        </span>
-
-        <button class="paginacao__botao" (click)="nextPage()" [disabled]="currentPage === totalPages">
-          Próxima
-          <i class="material-icons">chevron_right</i>
-        </button>
+    @if (envios().length > 0) {
+      <div class="tabela-paginacao">
+        <div class="tabela-paginacao__info">
+          <span>
+            Exibindo
+            {{ (currentPage - 1) * pageSize + 1 }}
+            -
+            {{ Math.min(currentPage * pageSize, envios().length) }}
+            de {{ envios().length }} relatórios
+          </span>
+        </div>
+        <div class="tabela-paginacao__controls">
+          <button
+            type="button"
+            class="tabela-paginacao__btn"
+            (click)="prevPage()"
+            [disabled]="currentPage === 1"
+          >
+            <i class="material-icons">chevron_left</i>
+          </button>
+          <span class="tabela-paginacao__info-pagina">
+            Página {{ currentPage }} de {{ totalPages }}
+          </span>
+          <button
+            type="button"
+            class="tabela-paginacao__btn"
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages"
+          >
+            <i class="material-icons">chevron_right</i>
+          </button>
+        </div>
       </div>
     }
   }
