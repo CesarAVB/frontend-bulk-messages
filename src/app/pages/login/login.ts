@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from '../../core/services/login';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +17,12 @@ export class LoginComponent {
   rememberMe: boolean = false;
   showPassword: boolean = false;
   errorMessage: string = '';
+  isLoading: boolean = false;
 
-  // Credenciais válidas
-  private readonly VALID_EMAIL = 'cobranca@lognetrj.com.br';
-  private readonly VALID_PASSWORD = 'lognet2019';
-
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private loginService: LoginService
+  ) {}
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
@@ -29,22 +30,27 @@ export class LoginComponent {
 
   onSubmit(): void {
     this.errorMessage = '';
+    this.isLoading = true;
 
-    // Validar credenciais
-    if (this.email === this.VALID_EMAIL && this.password === this.VALID_PASSWORD) {
-      // Salvar estado de autenticação
-      localStorage.setItem('isAuthenticated', 'true');
-      localStorage.setItem('userEmail', this.email);
-      
-      if (this.rememberMe) {
-        localStorage.setItem('rememberMe', 'true');
+    this.loginService.login(this.email, this.password).subscribe({
+      next: () => {
+        // Salvar estado de autenticação
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('userEmail', this.email);
+
+        if (this.rememberMe) {
+          localStorage.setItem('rememberMe', 'true');
+        }
+
+        this.isLoading = false;
+        // Redirecionar para o dashboard
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => {
+        this.isLoading = false;
+        this.errorMessage = 'E-mail ou senha incorretos';
       }
-
-      // Redirecionar para o dashboard
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.errorMessage = 'E-mail ou senha incorretos';
-    }
+    });
   }
 
   onCreateAccount(): void {
