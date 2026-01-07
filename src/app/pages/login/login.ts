@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { LoginService } from '../../core/services/login';
   templateUrl: './login.html',
   styleUrls: ['./login.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   rememberMe: boolean = false;
@@ -23,6 +23,19 @@ export class LoginComponent {
     private router: Router,
     private loginService: LoginService
   ) {}
+
+  ngOnInit(): void {
+    const remembered = localStorage.getItem('rememberMe') === 'true';
+    if (remembered) {
+      this.rememberMe = true;
+      const savedEmail = localStorage.getItem('userEmail');
+      if (savedEmail) {
+        this.email = savedEmail;
+      }
+    } else {
+      this.rememberMe = false;
+    }
+  }
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
@@ -48,12 +61,14 @@ export class LoginComponent {
 
         // Salvar token JWT e estado de autenticação
         localStorage.setItem('token', token);
-        // Salvar estado de autenticação
         localStorage.setItem('isAuthenticated', 'true');
-        localStorage.setItem('userEmail', this.email);
 
         if (this.rememberMe) {
           localStorage.setItem('rememberMe', 'true');
+          localStorage.setItem('userEmail', this.email);
+        } else {
+          localStorage.removeItem('rememberMe');
+          localStorage.removeItem('userEmail');
         }
 
         this.isLoading = false;
