@@ -44,7 +44,7 @@
   <!-- LISTA DE RELATÓRIOS -->
   @if (!carregando() && !erro() && envios().length > 0) {
     <div class="relatorios-list">
-      @for (envio of envios(); track envio.id) {
+      @for (envio of paginatedEnvios; track envio.id) {
         <div class="relatorio-card" (click)="irParaDetalhe(envio.id)">
           <!-- Linha principal: info à esquerda + estatísticas à direita -->
           <div class="relatorio-card__linha-principal">
@@ -125,6 +125,24 @@
         </div>
       }
     </div>
+
+    @if (envios().length > pageSize) {
+      <div class="paginacao">
+        <button class="paginacao__botao" (click)="prevPage()" [disabled]="currentPage === 1">
+          <i class="material-icons">chevron_left</i>
+          Anterior
+        </button>
+
+        <span class="paginacao__info">
+          Página {{ currentPage }} de {{ totalPages }}
+        </span>
+
+        <button class="paginacao__botao" (click)="nextPage()" [disabled]="currentPage === totalPages">
+          Próxima
+          <i class="material-icons">chevron_right</i>
+        </button>
+      </div>
+    }
   }
 
 </section>

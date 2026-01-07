@@ -18,6 +18,9 @@ export class RelatoriosComponent implements OnInit {
   erro = signal<string | null>(null);
   envios = signal<RelatorioEnvio[]>([]);
 
+  pageSize = 5;
+  currentPage = 1;
+
   constructor(
     private relatoriosService: RelatoriosService, 
     private router: Router
@@ -43,6 +46,9 @@ export class RelatoriosComponent implements OnInit {
           } else {
             this.envios.set([]);
           }
+
+          // sempre volta para a primeira página ao recarregar
+          this.currentPage = 1;
         },
         error: (err) => {
           this.erro.set('Não foi possível carregar os relatórios.');
@@ -51,6 +57,28 @@ export class RelatoriosComponent implements OnInit {
         complete: () => this.carregando.set(false)
       });
     }, 2000);
+  }
+
+  get totalPages(): number {
+    const total = this.envios().length;
+    return total > 0 ? Math.ceil(total / this.pageSize) : 1;
+  }
+
+  get paginatedEnvios(): RelatorioEnvio[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    return this.envios().slice(startIndex, startIndex + this.pageSize);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
   }
 
   // Método usado no HTML
