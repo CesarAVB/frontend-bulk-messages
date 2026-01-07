@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal, OnInit, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { buildInfo } from '../../../environments/build-info';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +12,8 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
   colapsada = signal(false);
-  appVersion = '1.1.0';
+  appVersion = buildInfo.version;
+  commitVersion = buildInfo.commit;
 
   constructor(private router: Router) {}
 
