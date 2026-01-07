@@ -32,8 +32,22 @@ export class LoginComponent {
     this.errorMessage = '';
     this.isLoading = true;
 
+    // Limpa qualquer token anterior antes de um novo login
+    localStorage.removeItem('token');
+    localStorage.removeItem('isAuthenticated');
+
     this.loginService.login(this.email, this.password).subscribe({
-      next: () => {
+      next: (response) => {
+        const token = response?.token;
+
+        if (!token) {
+          this.isLoading = false;
+          this.errorMessage = 'Não foi possível autenticar. Tente novamente.';
+          return;
+        }
+
+        // Salvar token JWT e estado de autenticação
+        localStorage.setItem('token', token);
         // Salvar estado de autenticação
         localStorage.setItem('isAuthenticated', 'true');
         localStorage.setItem('userEmail', this.email);
@@ -47,6 +61,8 @@ export class LoginComponent {
         this.router.navigate(['/dashboard']);
       },
       error: () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('isAuthenticated');
         this.isLoading = false;
         this.errorMessage = 'E-mail ou senha incorretos';
       }
