@@ -18,7 +18,7 @@
       <i class="material-icons">description</i>
       <div>
         <h2 class="info-arquivo__nome">{{ relatorio()?.nomeArquivo }}</h2>
-        <p class="info-arquivo__data">Enviado em {{ relatorio()?.dataEnvio | date:'dd \'de\' MMMM \'de\' y \'às\' HH:mm' }}</p>
+        <p class="info-arquivo__data">Enviado em {{ relatorio()?.dataEnvio | date:'dd/MM/yyyy - HH:mm:ss' }}</p>
       </div>
     </div>
   </div>
@@ -73,7 +73,7 @@
             <td>{{ item.nome }}</td>
             <td>{{ item.telefone }}</td>
             <td><span class="tipo-telefone">{{ item.tipoTelefone }}</span></td>
-            <td class="data">{{ item.dataEnvio | date:'HH:mm:ss' }}</td>
+            <td class="data">{{ item.dataEnvio | date:'dd/MM/yyyy - HH:mm:ss' }}</td>
           </tr>
         </tbody>
       </table>
@@ -101,7 +101,7 @@
             <td>{{ item.nome }}</td>
             <td>{{ item.telefone }}</td>
             <td><span class="tipo-telefone">{{ item.tipoTelefone }}</span></td>
-            <td class="data">{{ item.dataEnvio | date:'HH:mm:ss' }}</td>
+            <td class="data">{{ item.dataEnvio | date:'dd/MM/yyyy - HH:mm:ss' }}</td>
             <td>
               <div class="erro-info-container" *ngIf="item.mensagemErro">
                 <button 
@@ -132,7 +132,7 @@
         <i class="material-icons">error_outline</i>
       </div>
       <h2 class="erro-modal__titulo">Detalhes do Erro</h2>
-      <p class="erro-modal__mensagem">{{ erroAberto() }}</p>
+      <div class="erro-modal__mensagem" [innerHTML]="erroAberto()"></div>
     </div>
   </div>
 </section>
