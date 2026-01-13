@@ -67,4 +67,4 @@ jobs:
 
       # 7️⃣ Mensagem de sucesso
       - name: Deployment complete
-        run: echo "✅ Angular whatsapp-sender deployed successfully to nginx_message"
+        run: echo "Angular whatsapp-sender deployed successfully to nginx_message"
