@@ -30,14 +30,14 @@ export class MensagensService {
   constructor(private http: HttpClient) {}
 
   listarModelos() {
-    return this.http.get<ModeloMensagem[]>(`${this.baseUrl}/modelos`);
+    return this.http.get<ModeloMensagem[]>(`${this.baseUrl}/message-api/modelos`);
   }
 
   configurarEnvio(config: ConfiguracaoEnvio) {
-    return this.http.post(`${this.baseUrl}/configuracao`, config);
+    return this.http.post(`${this.baseUrl}/message-api/configuracao`, config);
   }
 
   confirmarEnvio(payload: PayloadEnvio) {
-    return this.http.post(`${this.baseUrl}/envios`, payload);
+    return this.http.post(`${this.baseUrl}/message-api/envios`, payload);
   }
 }

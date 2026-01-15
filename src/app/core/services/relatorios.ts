@@ -9,8 +9,8 @@
 
     private http = inject(HttpClient);
 
-    private readonly baseUrl = `${environment.apiUrl}/relatorios`;
-    private readonly envioUrl = `${environment.apiUrl}/envios`;
+    private readonly baseUrl = `${environment.apiUrl}/message-api/relatorios`;
+    private readonly envioUrl = `${environment.apiUrl}/message-api/envios`;
 
     // ==========================================
     // LISTAR TODOS OS RELATÓRIOS
@@ -30,7 +30,7 @@
     // OBTER DETALHE DE UM RELATÓRIO
     // ==========================================
     obterRelatorioPorId(id: string): Observable<RelatorioEnvio> {
-      return this.http.get<any>(`https://n8nwebhook.redelognet.com.br/webhook/925455d1-d0d5-44da-9217-a27a76b90d2e/message-api/relatorios/${id}`).pipe(
+      return this.http.get<any>(`${environment.apiUrl}/925455d1-d0d5-44da-9217-a27a76b90d2e/message-api/relatorios/${id}`).pipe(
         map(item => this.mapRelatorio(item))
       );
     }
@@ -39,7 +39,7 @@
     // LISTAR ITENS DO ENVIO (SUCESSO / ERRO)
     // ==========================================
     itensDoEnvio(id: string): Observable<ItemEnvio[]> {
-      return this.http.get<any[]>(`https://n8nwebhook.redelognet.com.br/webhook/925455d1-d0d5-44da-9217-a27a76b90d2e/message-api/relatorios/${id}/itens`).pipe(
+      return this.http.get<any[]>(`${environment.apiUrl}/925455d1-d0d5-44da-9217-a27a76b90d2e/message-api/relatorios/${id}/itens`).pipe(
         map(lista => lista.map(item => this.mapItem(item)))
       );
     }

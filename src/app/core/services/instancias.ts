@@ -15,9 +15,16 @@ export interface InstanciaWhatsapp {
   api_origem: string;
 }
 
+export interface QRCodeResponse {
+  pairingCode: string | null;
+  code: string;
+  base64: string;
+  count: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class InstanciasService {
-  private baseUrl = `${environment.apiUrl}/instancias`;
+  private baseUrl = `${environment.apiUrl}/message-api/instancias`;
 
   constructor(private http: HttpClient) {}
 
@@ -60,7 +67,19 @@ export class InstanciasService {
     );
   }
 
-  reconectar(id: string) {
-    return this.http.post(`${this.baseUrl}/${id}/reconectar`, {});
+
+  reconectar(instancia: string) {
+    return this.http.get<QRCodeResponse[]>(
+      `${environment.apiUrl}/925455d1-d0d5-44da-9217-a27a76b90d2e/message-api/instancia/connect/${instancia}`
+    ).pipe(
+      map(response => {
+        // A API retorna um array, pegamos o primeiro elemento
+        if (Array.isArray(response) && response.length > 0) {
+          return response[0];
+        }
+        // Fallback caso não seja array
+        return response as any as QRCodeResponse;
+      })
+    );
   }
 }

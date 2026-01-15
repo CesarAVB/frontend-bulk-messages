@@ -16,13 +16,9 @@ export interface Contato {
 })
 export class ContatosService {
   contatos = signal<Contato[]>([]);
-  // private n8nApiUrl = 'SUA_URL_DO_N8N_PARA_PROCESSAR_ARQUIVO'; // Se estiver usando n8n para processar o arquivo
-  // private baseUrl = 'SUA_URL_DO_BACKEND_PARA_UPLOAD'; // Se estiver usando um backend Java para upload
 
   constructor(private http: HttpClient) {}
 
-  // Método para processar o arquivo XLSX localmente (se o n8n não estiver fazendo isso)
-  // ESTE É O MÉTODO QUE ESTAVA CAUSANDO O ERRO E FOI CORRIGIDO
   uploadArquivoXls(arquivo: File) {
     // Validação inicial do arquivo
     if (!arquivo || !(arquivo instanceof File) || arquivo.size === 0) {

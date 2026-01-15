@@ -104,9 +104,72 @@
           <div class="instancia-card__origem">
             <span class="badge">{{ i.api_origem }}</span>
           </div>
+          
+          @if (!i.status_online) {
+            <button 
+              type="button" 
+              class="btn-reconectar" 
+              (click)="abrirModalConexao(i)"
+            >
+              <i class="material-icons">refresh</i>
+              Reconectar
+            </button>
+          }
         </div>
       </div>
     </article>
   </section>
+  }
+
+  <!-- Modal QR Code -->
+  @if (modalAberto()) {
+    <div class="qr-modal-backdrop" (click)="fecharModal()"></div>
+    <div class="qr-modal">
+      <div class="qr-modal__conteudo">
+        <button 
+          type="button" 
+          class="qr-modal__fechar" 
+          (click)="fecharModal()"
+        >
+          <i class="material-icons">close</i>
+        </button>
+
+        <div class="qr-modal__header">
+          <h2>Conectar Instância</h2>
+          <p>{{ instanciaConectando() }}</p>
+        </div>
+
+        <div class="qr-modal__body">
+          @if (qrCodeBase64()) {
+            <div class="qr-code-container">
+              <img 
+                [src]="qrCodeBase64()" 
+                alt="QR Code"
+                class="qr-code-image"
+              />
+            </div>
+            <div class="qr-modal__instrucoes">
+              <p><strong>Como conectar:</strong></p>
+              <ol>
+                <li>Abra o WhatsApp no seu celular</li>
+                <li>Toque em <strong>Mais opções</strong> ou <strong>Configurações</strong></li>
+                <li>Selecione <strong>Aparelhos conectados</strong></li>
+                <li>Toque em <strong>Conectar um aparelho</strong></li>
+                <li>Aponte seu celular para esta tela para escanear o código</li>
+              </ol>
+              <p class="qr-modal__aviso">
+                <i class="material-icons">info</i>
+                O QR Code é atualizado automaticamente a cada 35 segundos
+              </p>
+            </div>
+          } @else {
+            <div class="qr-modal__loading">
+              <i class="material-icons spin">sync</i>
+              <p>Gerando QR Code...</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
   }
 </section>
