@@ -2,5 +2,5 @@
 // Nao edite manualmente.
 export const buildInfo = {
   version: '1.0.5',
-  commit: '2e292b9'
+  commit: '5603b1b'
 } as const;
