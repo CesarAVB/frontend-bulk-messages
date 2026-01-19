@@ -76,8 +76,9 @@ export class InstanciasComponent {
 
     this.service.reconectar(instancia).subscribe({
       next: (response: QRCodeResponse) => {
-        if (response.base64) {
-          this.qrCodeBase64.set(response.base64);
+        const qrCode = response.base64 || response.qrcode;
+        if (qrCode) {
+          this.qrCodeBase64.set(qrCode);
         }
       },
       error: (err) => {

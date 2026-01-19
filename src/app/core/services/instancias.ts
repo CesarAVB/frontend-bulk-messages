@@ -18,7 +18,8 @@ export interface InstanciaWhatsapp {
 export interface QRCodeResponse {
   pairingCode: string | null;
   code: string;
-  base64: string;
+  base64?: string;
+  qrcode?: string;
   count: number;
 }
 
